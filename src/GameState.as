@@ -58,7 +58,7 @@ public class GameState extends FlxState
 		goals.add(_goal);
 		add(goals);
 		
-		// Add some huge wall tiles.
+		// Add some huge wall tiles. Here I find out that color goes alpha, red, green, blue
 		walls = new FlxGroup();
 		var redWall : WallTile = new WallTile(100, 100, 50, 50, RGBSprite.R, 0xffff0000);
 		var greenWall : WallTile = new WallTile(100, 150, 50, 50, RGBSprite.G, 0xff00ff00);
