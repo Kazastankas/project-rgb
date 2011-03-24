@@ -8,11 +8,11 @@ import org.flixel.*;
  */
 public class WallTile extends RGBSprite
 {
-	public function WallTile(X : int, Y : int, group : uint, color : uint) 
+	public function WallTile(X : int, Y : int, width : uint, height : uint, group : uint, color : uint) 
 	{
 		super(X, Y, group);
 		fixed = true;
-		createGraphic(50, 50, color);
+		createGraphic(width, height, color);
 	}
 }
 

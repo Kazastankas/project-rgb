@@ -17,11 +17,11 @@ public class Player extends FlxSprite
 		super(x, y);
 		loadGraphic(playerSprite, true, true);
 		
-		// size-based variables
+		// Size variables.
 		width = 50;
 		height = 50;
 		
-		// arbitrary physics constants to be tweaked later!
+		// Arbitrary physics constants, perhaps to be tweaked later!
 		drag.x = runSpeed * 2;
 		drag.y = runSpeed * 2;
 		offset.x = 0;
@@ -30,10 +30,10 @@ public class Player extends FlxSprite
 		maxVelocity.x = landVelocity.x;
 		maxVelocity.y = landVelocity.y;
 		
-		// mechanics
+		// Mechanics stuff go here.
 		health = 6;
 		
-		// animations
+		// Animation details go here.
 		addAnimation("idle", [0], 5, true);
 		play("idle");
 	}
@@ -48,12 +48,13 @@ public class Player extends FlxSprite
 	
 	override public function update():void
 	{
-		// physics resets?
+		// Physics value resets.
 		acceleration.x = 0;
 		acceleration.y = 0;
 		maxVelocity.x = landVelocity.x;
 		maxVelocity.y = landVelocity.y;
 		
+		// Process input for movement.
 		if (FlxG.keys.LEFT)
 		{
 			facing = LEFT;

@@ -28,6 +28,8 @@ public class RGBSprite extends FlxSprite
 	
 	override public function update():void
 	{
+		// If the game's color mode coincides with our group tagging and we aren't in, fade in.
+		// Otherwise, fade out.
 		if (alpha < 1.0 && (GameState.colorMode & spriteGroup) > 0) {
 			alpha = Math.max(alpha, 0.1);
 			fadeIn = true;
@@ -37,6 +39,9 @@ public class RGBSprite extends FlxSprite
 			fadeOut = true;
 		}
 		
+		// Fade in multiplicatively until 'close enough' to the end, then snap to end.
+		// Same with fading out. Fading in works because we jump straight to at least 0.1 when 
+		// we start.
 		if (alpha < 1.0 && fadeIn) {
 			if (alpha > 0.9) {
 				alpha = 1.0;

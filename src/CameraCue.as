@@ -18,6 +18,7 @@ public class CameraCue extends FlxObject
 	
 	override public function update():void
 	{
+		// Currently just centers itself on the target's location.
 		this.x = target.x + (0.25 * FlxG.width);
 		this.y = target.y + (0.25 * FlxG.height);
 	}

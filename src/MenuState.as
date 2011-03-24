@@ -3,7 +3,7 @@ package
 import org.flixel.*;
 
 /**
- * Dummy menu state, currently doesn't do anything.
+ * Dummy menu state, currently doesn't do anything and moves right along.
  * @author Katie Chironis, Zizhuang Yang
  */
 public class MenuState extends FlxState
