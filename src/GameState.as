@@ -28,12 +28,13 @@ public class GameState extends FlxState
 	protected var _goal : FlxSprite;
 	
 	protected var walls : FlxGroup;
+	protected var static_traps : FlxGroup;
 
 	protected var _camera : CameraCue;
 	
 	override public function GameState()
 	{
-		_p1Start = new FlxPoint(0, 0);
+		_p1Start = new FlxPoint(400, 400);
 		super();
 	}
 	
@@ -52,21 +53,30 @@ public class GameState extends FlxState
 		
 		// Goal init
 		goals = new FlxGroup();
-		_goal = new FlxSprite(150, 150);
+		_goal = new FlxSprite(550, 550);
 		_goal.loadGraphic(goalImg, false, true, 50, 50);
 		_goal.fixed = true;
 		goals.add(_goal);
 		add(goals);
 		
-		// Add some huge wall tiles. Here I find out that color goes alpha, red, green, blue
+		// Add some huge wall tiles. Here I find out that color goes alpha, red, green, blue.
 		walls = new FlxGroup();
-		var redWall : WallTile = new WallTile(100, 100, 50, 50, RGBSprite.R, 0xffff0000);
-		var greenWall : WallTile = new WallTile(100, 150, 50, 50, RGBSprite.G, 0xff00ff00);
-		var blueWall : WallTile = new WallTile(100, 200, 50, 50, RGBSprite.B, 0xff0000ff);
+		var redWall : Wall = new Wall(500, 500, 50, 50, RGBSprite.R);
+		var greenWall : Wall = new Wall(500, 550, 50, 50, RGBSprite.G);
+		var blueWall : Wall = new Wall(500, 600, 50, 50, RGBSprite.B);
 		walls.add(redWall);
 		walls.add(greenWall);
 		walls.add(blueWall);
 		add(walls);
+		
+		static_traps = new FlxGroup();
+		var redSaw : BuzzSaw = new BuzzSaw(300, 400, RGBSprite.R);
+		var greenSaw : BuzzSaw = new BuzzSaw(400, 500, RGBSprite.G);
+		var blueSaw : BuzzSaw = new BuzzSaw(400, 300, RGBSprite.B);
+		static_traps.add(redSaw);
+		static_traps.add(greenSaw);
+		static_traps.add(blueSaw);
+		add(static_traps);
 	}
 	
 	
@@ -74,8 +84,9 @@ public class GameState extends FlxState
 	{
 		super.update();
 		
-		// First process anything that might happen when a player touches a goal. 
+		// First process anything that might happen when a player touches something. 
 		FlxU.overlap(players, goals, acquire_goal);
+		FlxU.overlap(players, static_traps, process_hazard);
 		
 		// Make sure players can't go through walls.
 		FlxU.collide(players, walls);
@@ -112,6 +123,18 @@ public class GameState extends FlxState
 		if (a is Player)
 		{
 			trace("Yeeeah goal get!");
+		}
+	}
+	
+	// Hazards do less damage than traps.
+	protected function process_hazard(a : FlxObject, b : FlxObject):void
+	{
+		if (a is Player)
+		{
+			Player(a).hurt(1);
+		} else if (b is Player)
+		{
+			Player(b).hurt(1);
 		}
 	}
 }

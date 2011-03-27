@@ -11,6 +11,7 @@ public class Player extends FlxSprite
 	[Embed(source="img/metaknight.png")] public var playerSprite:Class;
 	protected var runSpeed : Number = 100;
 	protected var landVelocity : FlxPoint;
+	protected var invincibilityTimer : Number = 0;
 	
 	public function Player(x : int, y : int) 
 	{
@@ -46,6 +47,17 @@ public class Player extends FlxSprite
 		reset(x, y);
 	}
 	
+	override public function hurt(damage : Number):void
+	{
+			trace("Oomph! Health now at " + health);
+			
+		if (invincibilityTimer <= 0.0) {
+			super.hurt(damage);
+			trace("Oomph! Health now at " + health);
+			invincibilityTimer = 1.0;
+		}
+	}
+	
 	override public function update():void
 	{
 		// Physics value resets.
@@ -53,6 +65,23 @@ public class Player extends FlxSprite
 		acceleration.y = 0;
 		maxVelocity.x = landVelocity.x;
 		maxVelocity.y = landVelocity.y;
+		
+		// Deal with ticking invincibility.
+		if (invincibilityTimer > 0.0) {
+			invincibilityTimer -= FlxG.elapsed;
+			
+			// Cap off the minimum.
+			if (invincibilityTimer <= 0.0) {
+				invincibilityTimer = 0.0;
+			}
+			
+			// Have a little flashing effect.
+			if (Math.floor(invincibilityTimer * 6) % 2 == 1) {
+				alpha = 0.0;
+			} else {
+				alpha = 1.0;
+			}
+		}
 		
 		// Process input for movement.
 		if (FlxG.keys.LEFT)

@@ -24,16 +24,21 @@ public class RGBSprite extends FlxSprite
 		alpha = 1.0;
 		fadeIn = false;
 		fadeOut = false;
+		
+		setTint();
 	}
 	
-	override public function update():void
+	override public function update() : void
 	{
+		// Set the necessary tint.
+			
 		// If the game's color mode coincides with our group tagging and we aren't in, fade in.
 		// Otherwise, fade out.
 		if (alpha < 1.0 && (GameState.colorMode & spriteGroup) > 0) {
 			alpha = Math.max(alpha, 0.1);
 			fadeIn = true;
 			fadeOut = false;
+			setTint();
 		} else if (alpha > 0.0 && (GameState.colorMode & spriteGroup) == 0) {
 			fadeIn = false;
 			fadeOut = true;
@@ -58,7 +63,31 @@ public class RGBSprite extends FlxSprite
 			}
 		}
 		
+		// If we're alpha 1.0 here, then we haven't faded and thus would not change colors
+		// if, say, the mode change to another mode that this object is still visible in.
+		if (alpha == 1.0) {
+			setTint();
+		}
+		
 		super.update();
+	}
+	
+	protected function setTint() : void
+	{
+		switch (GameState.colorMode) {
+			case R:
+				color = 0xff0000;
+				break;
+			case G:
+				color = 0x00ff00;
+				break;
+			case B:
+				color = 0x0000ff;
+				break;
+			default:
+				color = 0xffffff;
+				break;
+		}
 	}
 }
 }
