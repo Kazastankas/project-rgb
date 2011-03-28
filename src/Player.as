@@ -3,12 +3,11 @@ package
 import org.flixel.*;
 
 /**
- * Player class.
+ * Player base class.
  * @author Katie Chironis, Zizhuang Yang
  */
 public class Player extends FlxSprite
 {
-	[Embed(source="img/player.png")] public var playerSprite:Class;
 	protected var runSpeed : Number = 100;
 	protected var landVelocity : FlxPoint;
 	protected var invincibilityTimer : Number = 0;
@@ -16,7 +15,6 @@ public class Player extends FlxSprite
 	public function Player(x : int, y : int) 
 	{
 		super(x, y);
-		loadGraphic(playerSprite, true, true);
 		
 		// Size variables.
 		width = 50;
@@ -33,10 +31,6 @@ public class Player extends FlxSprite
 		
 		// Mechanics stuff go here.
 		health = 6;
-		
-		// Animation details go here.
-		addAnimation("idle", [0, 1, 2, 3], 5, true);
-		play("idle");
 	}
 	
 	public function create(x : int, y : int):void
@@ -49,23 +43,14 @@ public class Player extends FlxSprite
 	
 	override public function hurt(damage : Number):void
 	{
-			trace("Oomph! Health now at " + health);
-			
 		if (invincibilityTimer <= 0.0) {
 			super.hurt(damage);
-			trace("Oomph! Health now at " + health);
 			invincibilityTimer = 1.0;
 		}
 	}
 	
 	override public function update():void
-	{
-		// Physics value resets.
-		acceleration.x = 0;
-		acceleration.y = 0;
-		maxVelocity.x = landVelocity.x;
-		maxVelocity.y = landVelocity.y;
-		
+	{		
 		// Deal with ticking invincibility.
 		if (invincibilityTimer > 0.0) {
 			invincibilityTimer -= FlxG.elapsed;
@@ -81,29 +66,6 @@ public class Player extends FlxSprite
 			} else {
 				alpha = 1.0;
 			}
-		}
-		
-		// Process input for movement.
-		if (FlxG.keys.LEFT)
-		{
-			facing = LEFT;
-			acceleration.x -= drag.x;
-		}
-		else if (FlxG.keys.RIGHT)
-		{
-			facing = RIGHT;
-			acceleration.x += drag.x;
-		}
-		
-		if (FlxG.keys.UP)
-		{
-			facing = UP;
-			acceleration.y -= drag.y;
-		}
-		else if (FlxG.keys.DOWN)
-		{
-			facing = DOWN;
-			acceleration.y += drag.y;
 		}
 		
 		super.update();

@@ -14,7 +14,7 @@ public class Main extends FlxGame
 {
 	public function Main()
 	{
-		super(800, 600, MenuState);
+		super(800, 600, MenuState, 1);
 	}
 }	
 }

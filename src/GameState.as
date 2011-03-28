@@ -20,8 +20,11 @@ public class GameState extends FlxState
 	static public var colorMode : uint = ALL;
 	
 	protected var players : FlxGroup;
-	protected var _player1 : Player;
+	protected var _player1 : Player1;
 	protected var _p1Start : FlxPoint;
+	
+	protected var _player2 : Player2;
+	protected var _p2Start : FlxPoint;
 	
 	[Embed(source = "img/goal.png")] protected var goalImg:Class;
 	protected var goals : FlxGroup;
@@ -35,6 +38,7 @@ public class GameState extends FlxState
 	override public function GameState()
 	{
 		_p1Start = new FlxPoint(400, 400);
+		_p2Start = new FlxPoint(600, 600);
 		super();
 	}
 	
@@ -42,14 +46,12 @@ public class GameState extends FlxState
 	{		
 		// Player init
 		players = new FlxGroup();
-		_player1 = new Player(_p1Start.x, _p1Start.y);
+		_player1 = new Player1(_p1Start.x, _p1Start.y);
+		_player2 = new Player2(_p2Start.x, _p2Start.y);
 		players.add(_player1);
+		players.add(_player2);
 		add(players);
 		
-		// Camera init, follows player for no1
-		_camera = new CameraCue(_player1, _p1Start);
-		add(_camera);
-		FlxG.follow(_camera, 9);
 		
 		// Goal init
 		goals = new FlxGroup();
@@ -77,6 +79,11 @@ public class GameState extends FlxState
 		hazards.add(greenSaw);
 		hazards.add(blueSaw);
 		add(hazards);
+		
+		// Camera init, follows player for no1
+		_camera = new CameraCue(redWall, _p1Start);
+		add(_camera);
+		FlxG.follow(_camera, 9);
 	}
 	
 	
@@ -88,7 +95,8 @@ public class GameState extends FlxState
 		FlxU.overlap(players, goals, acquire_goal);
 		FlxU.overlap(players, hazards, process_hazard);
 		
-		// Make sure players can't go through walls.
+		// Make sure players can't go through walls or other players.
+		FlxU.collide(players, players);
 		FlxU.collide(players, walls);
 		
 		handle_input();
