@@ -28,7 +28,7 @@ public class GameState extends FlxState
 	protected var _goal : FlxSprite;
 	
 	protected var walls : FlxGroup;
-	protected var static_traps : FlxGroup;
+	protected var hazards : FlxGroup;
 
 	protected var _camera : CameraCue;
 	
@@ -69,14 +69,14 @@ public class GameState extends FlxState
 		walls.add(blueWall);
 		add(walls);
 		
-		static_traps = new FlxGroup();
+		hazards = new FlxGroup();
 		var redSaw : BuzzSaw = new BuzzSaw(300, 400, RGBSprite.R);
 		var greenSaw : BuzzSaw = new BuzzSaw(400, 500, RGBSprite.G);
 		var blueSaw : BuzzSaw = new BuzzSaw(400, 300, RGBSprite.B);
-		static_traps.add(redSaw);
-		static_traps.add(greenSaw);
-		static_traps.add(blueSaw);
-		add(static_traps);
+		hazards.add(redSaw);
+		hazards.add(greenSaw);
+		hazards.add(blueSaw);
+		add(hazards);
 	}
 	
 	
@@ -86,7 +86,7 @@ public class GameState extends FlxState
 		
 		// First process anything that might happen when a player touches something. 
 		FlxU.overlap(players, goals, acquire_goal);
-		FlxU.overlap(players, static_traps, process_hazard);
+		FlxU.overlap(players, hazards, process_hazard);
 		
 		// Make sure players can't go through walls.
 		FlxU.collide(players, walls);

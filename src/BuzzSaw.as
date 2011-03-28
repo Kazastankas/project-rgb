@@ -3,10 +3,10 @@ package
 import org.flixel.*;
 
 /**
- * Base class for impassable walls.
+ * Base class for buzzsaw hazards.
  * @author Katie Chironis, Zizhuang Yang
  */
-public class BuzzSaw extends RGBSprite
+public class BuzzSaw extends StaticHazard
 {
 	[Embed(source = "img/buzzsaw.png")] public var sawSprite:Class;
 	

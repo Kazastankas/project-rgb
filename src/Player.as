@@ -8,7 +8,7 @@ import org.flixel.*;
  */
 public class Player extends FlxSprite
 {
-	[Embed(source="img/metaknight.png")] public var playerSprite:Class;
+	[Embed(source="img/player.png")] public var playerSprite:Class;
 	protected var runSpeed : Number = 100;
 	protected var landVelocity : FlxPoint;
 	protected var invincibilityTimer : Number = 0;
@@ -35,7 +35,7 @@ public class Player extends FlxSprite
 		health = 6;
 		
 		// Animation details go here.
-		addAnimation("idle", [0], 5, true);
+		addAnimation("idle", [0, 1, 2, 3], 5, true);
 		play("idle");
 	}
 	

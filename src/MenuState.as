@@ -11,6 +11,7 @@ public class MenuState extends FlxState
 	override public function create() : void
 	{
 		super.create();
+		FlxState.bgColor = 0xff999999;
 		FlxG.flash.start(0xff000000, 1);
 	}
 	
