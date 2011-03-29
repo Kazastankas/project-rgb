@@ -21,9 +21,11 @@ public class GameState extends FlxState
 	
 	protected var players : FlxGroup;
 	protected var _player1 : Player1;
+	protected var _p1Life : HealthBar;
 	protected var _p1Start : FlxPoint;
 	
 	protected var _player2 : Player2;
+	protected var _p2Life : HealthBar;
 	protected var _p2Start : FlxPoint;
 	
 	[Embed(source = "img/goal.png")] protected var goalImg:Class;
@@ -44,23 +46,6 @@ public class GameState extends FlxState
 	
 	override public function create() : void
 	{		
-		// Player init
-		players = new FlxGroup();
-		_player1 = new Player1(_p1Start.x, _p1Start.y);
-		_player2 = new Player2(_p2Start.x, _p2Start.y);
-		players.add(_player1);
-		players.add(_player2);
-		add(players);
-		
-		
-		// Goal init
-		goals = new FlxGroup();
-		_goal = new FlxSprite(550, 550);
-		_goal.loadGraphic(goalImg, false, true, 50, 50);
-		_goal.fixed = true;
-		goals.add(_goal);
-		add(goals);
-		
 		// Add some huge wall tiles. Here I find out that color goes alpha, red, green, blue.
 		walls = new FlxGroup();
 		var redWall : Wall = new Wall(500, 500, 50, 50, RGBSprite.R);
@@ -79,6 +64,27 @@ public class GameState extends FlxState
 		hazards.add(greenSaw);
 		hazards.add(blueSaw);
 		add(hazards);
+		
+		// Goal init
+		goals = new FlxGroup();
+		_goal = new FlxSprite(550, 550);
+		_goal.loadGraphic(goalImg, false, true, 50, 50);
+		_goal.fixed = true;
+		goals.add(_goal);
+		add(goals);
+		
+		// Player init
+		players = new FlxGroup();
+		_player1 = new Player1(_p1Start.x, _p1Start.y);
+		_player2 = new Player2(_p2Start.x, _p2Start.y);
+		players.add(_player1);
+		players.add(_player2);
+		add(players);
+		
+		_p1Life = new HealthBar(_player1);
+		_p2Life = new HealthBar(_player2);
+		add(_p1Life);
+		add(_p2Life);
 		
 		// Camera init, follows player for no1
 		_camera = new CameraCue(redWall, _p1Start);
