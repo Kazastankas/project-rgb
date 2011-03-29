@@ -33,7 +33,12 @@ public class GameState extends FlxState
 	protected var _goal : FlxSprite;
 	
 	protected var walls : FlxGroup;
+	
 	protected var hazards : FlxGroup;
+	protected var buzzsaws : FlxGroup;
+	
+	protected var traps : FlxGroup;
+	protected var playerTraps : FlxGroup;
 
 	protected var _camera : CameraCue;
 	
@@ -45,7 +50,9 @@ public class GameState extends FlxState
 	}
 	
 	override public function create() : void
-	{		
+	{	
+		var i : int;
+		
 		// Add some huge wall tiles. Here I find out that color goes alpha, red, green, blue.
 		walls = new FlxGroup();
 		var redWall : Wall = new Wall(500, 500, 50, 50, RGBSprite.R);
@@ -57,13 +64,28 @@ public class GameState extends FlxState
 		add(walls);
 		
 		hazards = new FlxGroup();
+		buzzsaws = new FlxGroup();
 		var redSaw : BuzzSaw = new BuzzSaw(300, 400, RGBSprite.R);
 		var greenSaw : BuzzSaw = new BuzzSaw(400, 500, RGBSprite.G);
 		var blueSaw : BuzzSaw = new BuzzSaw(400, 300, RGBSprite.B);
-		hazards.add(redSaw);
-		hazards.add(greenSaw);
-		hazards.add(blueSaw);
+		buzzsaws.add(redSaw);
+		buzzsaws.add(greenSaw);
+		buzzsaws.add(blueSaw);
+		hazards.add(buzzsaws);
 		add(hazards);
+		
+		traps = new FlxGroup();
+		playerTraps = new FlxGroup();
+		
+		// Player traps off to the sides.
+		for(i = 0; i < 64; i++)
+		{
+			var s : PlayerTrap = new PlayerTrap(-100, -100, RGBSprite.R);
+			s.exists = false;
+			playerTraps.add(s);
+		}
+		traps.add(playerTraps);
+		add(traps);
 		
 		// Goal init
 		goals = new FlxGroup();
@@ -100,6 +122,7 @@ public class GameState extends FlxState
 		// First process anything that might happen when a player touches something. 
 		FlxU.overlap(players, goals, acquire_goal);
 		FlxU.overlap(players, hazards, process_hazard);
+		FlxU.overlap(players, traps, process_trap);
 		
 		// Make sure players can't go through walls or other players.
 		FlxU.collide(players, players);
@@ -108,7 +131,7 @@ public class GameState extends FlxState
 		handle_input();
 	}
 	
-	protected function handle_input()
+	protected function handle_input():void
 	{
 		if (FlxG.keys.justPressed('Q')) // print out cursor location
 		{
@@ -130,6 +153,24 @@ public class GameState extends FlxState
 		{
 			colorMode = B;
 		}
+		if (FlxG.keys.justPressed('E')) // Player 1 trap
+		{
+			var s1 : PlayerTrap;
+			s1 = (playerTraps.getFirstAvail() as PlayerTrap);
+			if (s1 != null)
+			{
+				s1.create(_player1.x, _player1.y, colorMode);
+			}
+		}
+		if (FlxG.keys.justPressed('SLASH')) // Player 2 trap
+		{
+			var s2 : PlayerTrap;
+			s2 = (playerTraps.getFirstAvail() as PlayerTrap);
+			if (s2 != null)
+			{
+				s2.create(_player2.x, _player2.y, colorMode);
+			}
+		}
 	}
 	
 	protected function acquire_goal(a : FlxObject, b : FlxObject):void
@@ -140,7 +181,7 @@ public class GameState extends FlxState
 		}
 	}
 	
-	// Hazards do less damage than traps.
+	// Hazards do less damage than traps, but are persistent.
 	protected function process_hazard(a : FlxObject, b : FlxObject):void
 	{
 		if (a is Player)
@@ -149,6 +190,19 @@ public class GameState extends FlxState
 		} else if (b is Player)
 		{
 			Player(b).hurt(1);
+		}
+	}
+	
+	protected function process_trap(a : FlxObject, b : FlxObject):void
+	{
+		if (a is Player && b is Trap && Trap(b).isArmed())
+		{
+			Player(a).hurt(3);
+			b.kill();
+		} else if (b is Player && a is Trap && Trap(a).isArmed())
+		{
+			Player(b).hurt(3);
+			a.kill();
 		}
 	}
 }

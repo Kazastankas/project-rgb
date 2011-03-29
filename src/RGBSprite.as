@@ -72,6 +72,11 @@ public class RGBSprite extends FlxSprite
 		super.update();
 	}
 	
+	protected function setSpriteGroup(group : uint) : void
+	{
+		spriteGroup = group & 0x7;
+	}
+	
 	protected function setTint() : void
 	{
 		switch (GameState.colorMode) {

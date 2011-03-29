@@ -33,8 +33,13 @@ public class HealthBar extends FlxSprite
 		var green : Number = 255 * (parentPlayer.health / 6);
 		
 		// Draw the lifebar.
-		createGraphic(barWidth * parentPlayer.health, barHeight,
-					  0xff000000 | (red << 16) | (green << 8));
+		if (parentPlayer.health > 0)
+		{
+			createGraphic(barWidth * parentPlayer.health, barHeight,
+		   				  0xff000000 | (red << 16) | (green << 8));
+		} else { // All red for 'dead'.
+			createGraphic(barWidth * 6, barHeight, 0xffff0000);
+		}
 	}
 }
 
