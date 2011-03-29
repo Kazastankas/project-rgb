@@ -7,13 +7,11 @@ import org.flixel.*;
  */
 public class CameraCue extends FlxObject
 {
-	protected var target : FlxObject;
-	protected var defaultPos : FlxPoint;
+	protected var target : FlxPoint;
 	
-	public function CameraCue(target : FlxObject, defaultPos : FlxPoint) 
+	public function CameraCue() 
 	{
-		this.target = target;
-		this.defaultPos = defaultPos;
+		this.target = new FlxPoint(FlxG.width / 2 + 50, FlxG.height / 2 + 50);
 	}
 	
 	override public function update():void

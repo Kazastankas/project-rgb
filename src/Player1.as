@@ -35,8 +35,8 @@ public class Player1 extends Player
 		// Physics value resets.
 		acceleration.x = 0;
 		acceleration.y = 0;
-		maxVelocity.x = landVelocity.x;
-		maxVelocity.y = landVelocity.y;
+		maxVelocity.x = runSpeed;
+		maxVelocity.y = runSpeed;
 		
 		// Process input for movement.
 		if (FlxG.keys.LEFT)

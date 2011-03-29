@@ -4,7 +4,7 @@ import adobe.utils.CustomActions;
 import org.flixel.*;
 
 /**
- * Game state.
+ * Game state. Important to note: Everything here is on a 50, 50 offset to have an outer wall.
  * @author Katie Chironis, Zizhuang Yang
  */
 public class GameState extends FlxState
@@ -36,6 +36,7 @@ public class GameState extends FlxState
 	
 	protected var hazards : FlxGroup;
 	protected var buzzsaws : FlxGroup;
+	protected var patrollers : FlxGroup;
 	
 	protected var traps : FlxGroup;
 	protected var playerTraps : FlxGroup;
@@ -44,8 +45,8 @@ public class GameState extends FlxState
 	
 	override public function GameState()
 	{
-		_p1Start = new FlxPoint(400, 400);
-		_p2Start = new FlxPoint(600, 600);
+		_p1Start = new FlxPoint(50, 50);
+		_p2Start = new FlxPoint(800, 600);
 		super();
 	}
 	
@@ -53,8 +54,18 @@ public class GameState extends FlxState
 	{	
 		var i : int;
 		
-		// Add some huge wall tiles. Here I find out that color goes alpha, red, green, blue.
 		walls = new FlxGroup();
+		// Outer walls.
+		var northWall : Wall = new Wall(50, 30, 800, 20, RGBSprite.R | RGBSprite.G | RGBSprite.B);
+		var westWall : Wall = new Wall(30, 30, 20, 640, RGBSprite.R | RGBSprite.G | RGBSprite.B);
+		var eastWall : Wall = new Wall(850, 30, 20, 640, RGBSprite.R | RGBSprite.G | RGBSprite.B);
+		var southWall : Wall = new Wall(50, 650, 800, 20, RGBSprite.R | RGBSprite.G | RGBSprite.B);
+		walls.add(northWall);
+		walls.add(westWall);
+		walls.add(eastWall);
+		walls.add(southWall);
+		
+		// Add some huge wall tiles. Here I find out that color goes alpha, red, green, blue.
 		var redWall : Wall = new Wall(500, 500, 50, 50, RGBSprite.R);
 		var greenWall : Wall = new Wall(500, 550, 50, 50, RGBSprite.G);
 		var blueWall : Wall = new Wall(500, 600, 50, 50, RGBSprite.B);
@@ -72,6 +83,18 @@ public class GameState extends FlxState
 		buzzsaws.add(greenSaw);
 		buzzsaws.add(blueSaw);
 		hazards.add(buzzsaws);
+		
+		patrollers = new FlxGroup();
+		var redPatroller : Patroller = new Patroller(300, 300, 100, RGBSprite.R);
+		redPatroller.addWaypoint(new FlxPoint(300, 500));
+		var greenPatroller : Patroller = new Patroller(300, 500, 100, RGBSprite.G);
+		greenPatroller.addWaypoint(new FlxPoint(500, 500));
+		var bluePatroller : Patroller = new Patroller(300, 300, 100, RGBSprite.B);
+		bluePatroller.addWaypoint(new FlxPoint(500, 300));
+		patrollers.add(redPatroller);
+		patrollers.add(greenPatroller);
+		patrollers.add(bluePatroller);
+		hazards.add(patrollers);
 		add(hazards);
 		
 		traps = new FlxGroup();
@@ -108,8 +131,8 @@ public class GameState extends FlxState
 		add(_p1Life);
 		add(_p2Life);
 		
-		// Camera init, follows player for no1
-		_camera = new CameraCue(redWall, _p1Start);
+		// Camera init
+		_camera = new CameraCue();
 		add(_camera);
 		FlxG.follow(_camera, 9);
 	}

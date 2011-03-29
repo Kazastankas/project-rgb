@@ -9,7 +9,6 @@ import org.flixel.*;
 public class Player extends FlxSprite
 {
 	protected var runSpeed : Number = 200;
-	protected var landVelocity : FlxPoint;
 	protected var invincibilityTimer : Number = 0;
 	
 	public function Player(x : int, y : int) 
@@ -25,9 +24,8 @@ public class Player extends FlxSprite
 		drag.y = runSpeed * 2;
 		offset.x = 0;
 		offset.y = 0;
-		landVelocity = new FlxPoint(runSpeed, runSpeed);
-		maxVelocity.x = landVelocity.x;
-		maxVelocity.y = landVelocity.y;
+		maxVelocity.x = runSpeed;
+		maxVelocity.y = runSpeed;
 		
 		// Mechanics stuff go here.
 		health = 6;

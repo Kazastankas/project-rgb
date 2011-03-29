@@ -8,7 +8,7 @@ import org.flixel.*;
  */
 public class BuzzSaw extends StaticHazard
 {
-	[Embed(source = "img/buzzsaw.png")] public var sawSprite:Class;
+	[Embed(source = "img/rgb_hacksaw.png")] public var sawSprite:Class;
 	
 	public function BuzzSaw(X : int, Y : int, group : uint) 
 	{
