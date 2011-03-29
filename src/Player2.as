@@ -15,6 +15,14 @@ public class Player2 extends Player
 		super(x, y);
 		loadGraphic(playerSprite, true, true);
 		
+		// Size variables.
+		width = 40;
+		height = 40;
+		scale.x = 0.8;
+		scale.y = 0.8;
+		offset.x = 5;
+		offset.y = 5;
+		
 		// Animation details go here.
 		addAnimation("idle", [0, 1, 2, 3], 5, true);
 		play("idle");

@@ -15,15 +15,9 @@ public class Player extends FlxSprite
 	{
 		super(x, y);
 		
-		// Size variables.
-		width = 50;
-		height = 50;
-		
 		// Arbitrary physics constants, perhaps to be tweaked later!
 		drag.x = runSpeed * 2;
 		drag.y = runSpeed * 2;
-		offset.x = 0;
-		offset.y = 0;
 		maxVelocity.x = runSpeed;
 		maxVelocity.y = runSpeed;
 		

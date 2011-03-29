@@ -81,13 +81,13 @@ public class RGBSprite extends FlxSprite
 	{
 		switch (GameState.colorMode) {
 			case R:
-				color = 0xff0000;
+				color = 0xb70909;
 				break;
 			case G:
-				color = 0x00ff00;
+				color = 0x6daa7e;
 				break;
 			case B:
-				color = 0x0000ff;
+				color = 0x3b5f7c;
 				break;
 			default:
 				color = 0xffffff;

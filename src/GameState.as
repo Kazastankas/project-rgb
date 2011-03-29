@@ -53,6 +53,7 @@ public class GameState extends FlxState
 	override public function create() : void
 	{	
 		var i : int;
+		var j : int;
 		
 		walls = new FlxGroup();
 		// Outer walls.
@@ -65,36 +66,193 @@ public class GameState extends FlxState
 		walls.add(eastWall);
 		walls.add(southWall);
 		
-		// Add some huge wall tiles. Here I find out that color goes alpha, red, green, blue.
-		var redWall : Wall = new Wall(500, 500, 50, 50, RGBSprite.R);
-		var greenWall : Wall = new Wall(500, 550, 50, 50, RGBSprite.G);
-		var blueWall : Wall = new Wall(500, 600, 50, 50, RGBSprite.B);
+		// Red walls. All of them. Done left to right, then top to bottom.
+		var redWall : Wall;
+		
+		// top left L
+		for (i = 0; i < 6; i++) {
+			redWall = new Wall(50 + 25 * i, 175, 25, 25, RGBSprite.R);
+			walls.add(redWall);
+		}
+		for (i = 0; i < 2; i++) {
+			redWall = new Wall(175, 125 + 25 * i, 25, 25, RGBSprite.R);
+			walls.add(redWall);
+		}
+		
+		// vert bar
+		for (i = 0; i < 4; i++) {
+			redWall = new Wall(250, 75 + 25 * i, 25, 25, RGBSprite.R);
+			walls.add(redWall);
+		}
+		
+		// horz bars (the -_-)
+		for (i = 0; i < 5; i++) {
+			redWall = new Wall(325 + 25 * i, 150, 25, 25, RGBSprite.R);
+			walls.add(redWall);
+			redWall = new Wall(575 + 25 * i, 150, 25, 25, RGBSprite.R);
+			walls.add(redWall);
+		}
+		for (i = 0; i < 6; i++) {
+			redWall = new Wall(450 + 25 * i, 275, 25, 25, RGBSprite.R);
+			walls.add(redWall);
+		}
+		
+		// vert bar
+		for (i = 0; i < 7; i++) {
+			redWall = new Wall(725, 200 + 25 * i, 25, 25, RGBSprite.R);
+			walls.add(redWall);
+		}
+		
+		// lower case h with a thing
+		for (i = 0; i < 4; i++) {
+			redWall = new Wall(250 + 25 * i, 400, 25, 25, RGBSprite.R);
+			walls.add(redWall);
+		}
+		for (i = 0; i < 9; i++) {
+			redWall = new Wall(350, 375 + 25 * i, 25, 25, RGBSprite.R);
+			walls.add(redWall);
+		}
+		for (i = 0; i < 4; i++) {
+			redWall = new Wall(375 + 25 * i, 500, 25, 25, RGBSprite.R);
+			walls.add(redWall);
+		}
+		for (i = 0; i < 3; i++) {
+			redWall = new Wall(450, 525 + 25 * i, 25, 25, RGBSprite.R);
+			walls.add(redWall);
+		}
+		
+		// lower right L shape
+		for (i = 0; i < 6; i++) {
+			redWall = new Wall(600 + 25 * i, 525, 25, 25, RGBSprite.R);
+			walls.add(redWall);
+		}
+		redWall = new Wall(725, 500, 25, 25, RGBSprite.R);
 		walls.add(redWall);
+		
+		// Green walls. All of them.
+		var greenWall : Wall;
+		
+		// between the -_-
+		for (i = 0; i < 3; i++) {
+			greenWall = new Wall(500, 150 + 25 * i, 25, 25, RGBSprite.G);
+			walls.add(greenWall);
+		}
+		
+		// middle vert bars
+		for (i = 0; i < 7; i++) {
+			greenWall = new Wall(275, 225 + 25 * i, 25, 25, RGBSprite.G);
+			walls.add(greenWall);
+		}
+		for (i = 0; i < 9; i++) {
+			greenWall = new Wall(650, 225 + 25 * i, 25, 25, RGBSprite.G);
+			walls.add(greenWall);
+		}
+		
+		// left blocks
+		for (i = 0; i < 4; i++) {
+			for (j = 0; j < 2; j++) {
+				greenWall = new Wall(50 + 25 * j, 375 + 25 * i, 25, 25, RGBSprite.G);
+				walls.add(greenWall);
+			}
+		}
+		for (i = 0; i < 3; i++) {
+			greenWall = new Wall(50 + 25 * i, 525, 25, 25, RGBSprite.G);
+			walls.add(greenWall);
+		}
+		
+		// right blocks
+		for (i = 0; i < 3; i++) {
+			for (j = 0; j < 3; j++) {
+				greenWall = new Wall(800, 125 + 125 * j + 25 * i, 25, 25, RGBSprite.G);
+				walls.add(greenWall);
+				greenWall = new Wall(825, 125 + 125 * j + 25 * i, 25, 25, RGBSprite.G);
+				walls.add(greenWall);
+			}
+		}
+		greenWall = new Wall(750, 425, 25, 25, RGBSprite.G);
 		walls.add(greenWall);
-		walls.add(blueWall);
+		greenWall = new Wall(775, 425, 25, 25, RGBSprite.G);
+		walls.add(greenWall);
+		
+		// bottom block
+		for (i = 0; i < 6; i++) {
+			greenWall = new Wall(525 + 25 * i, 600, 25, 25, RGBSprite.G);
+			walls.add(greenWall);
+			greenWall = new Wall(525 + 25 * i, 625, 25, 25, RGBSprite.G);
+			walls.add(greenWall);
+		}		
+		
+		// Blue walls. All of them.
+		var blueWall : Wall;
+		
+		// Headliner
+		for (i = 0; i < 20; i++) {
+			blueWall = new Wall(325 + 25 * i, 75, 25, 25, RGBSprite.B);
+			walls.add(blueWall);
+		}
+		
+		// Left block
+		for (i = 0; i < 6; i++) {
+			for (j = 0; j < 5; j++) {
+				blueWall = new Wall(50 + 25 * i, 250 + 25 * j, 25, 25, RGBSprite.B);
+				walls.add(blueWall);
+			}
+		}
+		
+		// Center blocks
+		for (i = 0; i < 2; i++) {
+			for (j = 0; j < 2; j++) {
+				blueWall = new Wall(350 + 25 * i, 275 + 25 * j, 25, 25, RGBSprite.B);
+				walls.add(blueWall);
+			}
+		}
+		for (i = 0; i < 6; i++) {
+			for (j = 0; j < 4; j++) {
+				blueWall = new Wall(425 + 25 * i, 350 + 25 * j, 25, 25, RGBSprite.B);
+				walls.add(blueWall);
+			}
+		}
+		
+		// Lower left smiley
+		for (i = 0; i < 2; i++) {
+			for (j = 0; j < 2; j++) {
+				blueWall = new Wall(150 + 25 * i, 450 + 25 * j, 25, 25, RGBSprite.B);
+				walls.add(blueWall);
+				blueWall = new Wall(150 + 25 * i, 575 + 25 * j, 25, 25, RGBSprite.B);
+				walls.add(blueWall);
+			}
+		}
+		for (i = 0; i < 2; i++) {
+			for (j = 0; j < 5; j++) {
+				blueWall = new Wall(250 + 25 * i, 475 + 25 * j, 25, 25, RGBSprite.B);
+				walls.add(blueWall);
+			}
+		}
+
 		add(walls);
 		
 		hazards = new FlxGroup();
+		
 		buzzsaws = new FlxGroup();
-		var redSaw : BuzzSaw = new BuzzSaw(300, 400, RGBSprite.R);
-		var greenSaw : BuzzSaw = new BuzzSaw(400, 500, RGBSprite.G);
-		var blueSaw : BuzzSaw = new BuzzSaw(400, 300, RGBSprite.B);
-		buzzsaws.add(redSaw);
+		var greenSaw : BuzzSaw;
+		greenSaw = new BuzzSaw(488, 188, RGBSprite.G);
 		buzzsaws.add(greenSaw);
-		buzzsaws.add(blueSaw);
+		greenSaw = new BuzzSaw(263, 213, RGBSprite.G);
+		buzzsaws.add(greenSaw);
+		greenSaw = new BuzzSaw(638, 413, RGBSprite.G);
+		buzzsaws.add(greenSaw);
 		hazards.add(buzzsaws);
 		
 		patrollers = new FlxGroup();
-		var redPatroller : Patroller = new Patroller(300, 300, 100, RGBSprite.R);
-		redPatroller.addWaypoint(new FlxPoint(300, 500));
-		var greenPatroller : Patroller = new Patroller(300, 500, 100, RGBSprite.G);
-		greenPatroller.addWaypoint(new FlxPoint(500, 500));
-		var bluePatroller : Patroller = new Patroller(300, 300, 100, RGBSprite.B);
-		bluePatroller.addWaypoint(new FlxPoint(500, 300));
-		patrollers.add(redPatroller);
-		patrollers.add(greenPatroller);
+		var bluePatroller : Patroller;
+		bluePatroller = new Patroller(350, 200, 100, RGBSprite.B);
+		bluePatroller.addWaypoint(new FlxPoint(350, 225));
+		patrollers.add(bluePatroller);
+		bluePatroller = new Patroller(500, 540, 100, RGBSprite.B);
+		bluePatroller.addWaypoint(new FlxPoint(525, 540));
 		patrollers.add(bluePatroller);
 		hazards.add(patrollers);
+		
 		add(hazards);
 		
 		traps = new FlxGroup();

@@ -10,9 +10,9 @@ public class HealthBar extends FlxSprite
 {
 	// Offset constants.
 	static private const yOffset : Number = -5;
-	static private const xOffset : Number = 1;
+	static private const xOffset : Number = -1;
 	static private const barHeight : Number = 5;
-	static private const barWidth : Number = 8;
+	static private const barWidth : Number = 7;
 	
 	protected var parentPlayer : Player;
 	
