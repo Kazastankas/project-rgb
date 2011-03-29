@@ -25,7 +25,7 @@ public class Player extends FlxSprite
 		drag.y = runSpeed * 2;
 		offset.x = 0;
 		offset.y = 0;
-		landVelocity = new FlxPoint(runSpeed, 62 + Math.random() * 20);
+		landVelocity = new FlxPoint(runSpeed, runSpeed);
 		maxVelocity.x = landVelocity.x;
 		maxVelocity.y = landVelocity.y;
 		
