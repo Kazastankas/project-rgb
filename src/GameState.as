@@ -235,11 +235,11 @@ public class GameState extends FlxState
 		
 		buzzsaws = new FlxGroup();
 		var greenSaw : BuzzSaw;
-		greenSaw = new BuzzSaw(488, 188, RGBSprite.G);
+		greenSaw = new BuzzSaw(493, 193, RGBSprite.G);
 		buzzsaws.add(greenSaw);
-		greenSaw = new BuzzSaw(263, 213, RGBSprite.G);
+		greenSaw = new BuzzSaw(268, 218, RGBSprite.G);
 		buzzsaws.add(greenSaw);
-		greenSaw = new BuzzSaw(638, 413, RGBSprite.G);
+		greenSaw = new BuzzSaw(643, 418, RGBSprite.G);
 		buzzsaws.add(greenSaw);
 		hazards.add(buzzsaws);
 		

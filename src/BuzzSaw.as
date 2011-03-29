@@ -14,7 +14,13 @@ public class BuzzSaw extends StaticHazard
 	{
 		super(X, Y, group);
 		fixed = true;
-		loadGraphic(sawSprite, true, true);
+		loadGraphic(sawSprite, true, true)
+		
+		// Size variables.
+		width = 40;
+		height = 40;
+		offset.x = 5;
+		offset.y = 5;
 	}
 }
 
