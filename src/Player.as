@@ -8,7 +8,7 @@ import org.flixel.*;
  */
 public class Player extends FlxSprite
 {
-	protected var runSpeed : Number = 100;
+	protected var runSpeed : Number = 200;
 	protected var landVelocity : FlxPoint;
 	protected var invincibilityTimer : Number = 0;
 	
