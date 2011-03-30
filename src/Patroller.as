@@ -9,7 +9,7 @@ import org.flixel.data.FlxList;
  */
 public class Patroller extends MobileHazard
 {	
-	[Embed(source = "img/rgb_minetrap.png")] public var trapSprite:Class;
+	[Embed(source = "img/patroller.png")] public var trapSprite:Class;
 	protected var waypoints : Array;
 	protected var currentIndex : uint;
 	protected var rising : Boolean;
