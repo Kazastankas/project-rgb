@@ -19,6 +19,9 @@ public class Player1 extends Player
 		width = 40;
 		height = 40;
 		
+		// Mechanical details.
+		allegiance = 1;
+		
 		// Animation details go here.
 		addAnimation("idle", [0, 1, 2, 3], 5, true);
 		play("idle");

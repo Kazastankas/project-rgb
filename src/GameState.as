@@ -28,16 +28,17 @@ public class GameState extends FlxState
 	protected var _p1Start : FlxPoint;
 	protected var _p1BaseLoc : FlxPoint;
 	protected var _p1Base : FlxGroup;
-	protected var _p1Goal : FlxGroup;
+	protected var _p1RespawnTimer : Number = 0;
 	
 	protected var _player2 : Player2;
 	protected var _p2Life : HealthBar;
 	protected var _p2Start : FlxPoint;
 	protected var _p2BaseLoc : FlxPoint;
 	protected var _p2Base : FlxGroup;
-	protected var _p2Goal : FlxGroup;
+	protected var _p2RespawnTimer : Number = 0;
 	
 	protected var walls : FlxGroup;
+	protected var goals : FlxGroup;
 	
 	protected var hazards : FlxGroup;
 	protected var buzzsaws : FlxGroup;
@@ -104,8 +105,6 @@ public class GameState extends FlxState
 		_p1Base.add(p1_base);
 		add(_p1Base);
 		
-		_p1Goal = new FlxGroup();
-		
 		_p2Base = new FlxGroup();
 		var p2_base : FlxSprite = new FlxSprite(_p2BaseLoc.x, _p2BaseLoc.y);
 		p2_base.loadGraphic(base2Sprite, false, true, 75, 75);
@@ -113,7 +112,12 @@ public class GameState extends FlxState
 		_p2Base.add(p2_base);
 		add(_p2Base);
 		
-		_p2Goal = new FlxGroup();
+		goals = new FlxGroup();
+		var p1_goal : Goal = new Goal(_p1BaseLoc.x, _p1BaseLoc.y, _p1BaseLoc, 1);
+		var p2_goal : Goal = new Goal(_p2BaseLoc.x, _p2BaseLoc.y, _p2BaseLoc, 2);
+		goals.add(p1_goal);
+		goals.add(p2_goal);
+		add(goals);
 		
 		// Player init
 		players = new FlxGroup();
@@ -141,13 +145,31 @@ public class GameState extends FlxState
 		super.update();
 		
 		// First process anything that might happen when a player touches something. 
-		// FlxU.overlap(players, goals, acquire_goal);
+		FlxU.overlap(players, goals, acquire_goal);
+		FlxU.overlap(players, _p1Base, check_p1_capture);
+		FlxU.overlap(players, _p2Base, check_p2_capture);
 		FlxU.overlap(players, hazards, process_hazard);
 		FlxU.overlap(players, traps, process_trap);
 		
 		// Make sure players can't go through walls or other players.
 		FlxU.collide(players, players);
 		FlxU.collide(players, walls);
+		
+		// Check for dead players and put them on a resurrection timer.
+		if (_player1.dead) {
+			_p1RespawnTimer += FlxG.elapsed;
+			if (_p1RespawnTimer > 1.5) {
+				_p1RespawnTimer = 0;
+				_player1.create(_p1Start.x, _p1Start.y);
+			}
+		}
+		if (_player2.dead) {
+			_p2RespawnTimer += FlxG.elapsed;
+			if (_p2RespawnTimer > 1.5) {
+				_p2RespawnTimer = 0;
+				_player2.create(_p2Start.x, _p2Start.y);
+			}
+		}
 		
 		handle_input();
 	}
@@ -174,7 +196,7 @@ public class GameState extends FlxState
 		{
 			colorMode = B;
 		}
-		if (FlxG.keys.justPressed('E')) // Player 1 trap
+		if (FlxG.keys.justPressed('SLASH')) // Player 1 trap
 		{
 			var s1 : PlayerTrap;
 			s1 = (playerTraps.getFirstAvail() as PlayerTrap);
@@ -183,7 +205,7 @@ public class GameState extends FlxState
 				s1.create(_player1.x, _player1.y, colorMode);
 			}
 		}
-		if (FlxG.keys.justPressed('SLASH')) // Player 2 trap
+		if (FlxG.keys.justPressed('E')) // Player 2 trap
 		{
 			var s2 : PlayerTrap;
 			s2 = (playerTraps.getFirstAvail() as PlayerTrap);
@@ -196,9 +218,34 @@ public class GameState extends FlxState
 	
 	protected function acquire_goal(a : FlxObject, b : FlxObject):void
 	{
-		if (a is Player)
+		if (a is Player && b is Goal)
 		{
-			trace("Yeeeah goal get!");
+			if (Player(a).getAllegiance() != Goal(b).getAllegiance())
+			{
+				Player(a).capture(Goal(b));
+			}
+		}
+	}
+	
+	protected function check_p1_capture(a : FlxObject, b : FlxObject):void
+	{
+		if (a is Player1)
+		{
+			if (Player(a).isCarrying()) {
+				Player(a).scoreGoal();
+				trace(Player(a).isCarrying() + " Player 1 scores!");
+			}
+		}
+	}
+	
+	protected function check_p2_capture(a : FlxObject, b : FlxObject):void
+	{
+		if (a is Player2)
+		{
+			if (Player(a).isCarrying()) {
+				Player(a).scoreGoal();
+				trace("Player 2 scores!");
+			}
 		}
 	}
 	

@@ -1,6 +1,7 @@
 package  
 {
 import org.flixel.*;
+import org.flixel.data.FlxPanel;
 
 /**
  * Player base class.
@@ -9,6 +10,11 @@ import org.flixel.*;
 public class Player extends FlxSprite
 {
 	protected var runSpeed : Number = 200;
+	
+	protected var allegiance : Number = 0;
+	protected var carryingGoal : Boolean;
+	protected var carriedGoal : Goal;
+	
 	protected var invincibilityTimer : Number = 0;
 	
 	public function Player(x : int, y : int) 
@@ -23,14 +29,51 @@ public class Player extends FlxSprite
 		
 		// Mechanics stuff go here.
 		health = 6;
+		carryingGoal = false;
+		carriedGoal = null;
 	}
 	
 	public function create(x : int, y : int):void
 	{
 		velocity.x = velocity.y = 0;
 		health = 6;
+		carryingGoal = false;
+		carriedGoal = null;
 		color = 0xFFFFFF;
 		reset(x, y);
+	}
+	
+	public function capture(goal : Goal):void
+	{
+		carryingGoal = true;
+		carriedGoal = goal;
+		goal.capture(this);
+	}
+	
+	public function isCarrying():Boolean
+	{
+		return carryingGoal;
+	}
+	
+	public function scoreGoal():void
+	{
+		carriedGoal.startRespawn();
+		carryingGoal = false;
+		carriedGoal = null;
+	}
+	
+	public function getAllegiance():Number
+	{
+		return allegiance;
+	}
+	
+	override public function kill():void
+	{
+		super.kill();
+		
+		if (carryingGoal) {
+			carriedGoal.startRespawn();
+		}
 	}
 	
 	override public function hurt(damage : Number):void
