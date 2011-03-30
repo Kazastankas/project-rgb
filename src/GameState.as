@@ -29,6 +29,7 @@ public class GameState extends FlxState
 	protected var _p1BaseLoc : FlxPoint;
 	protected var _p1Base : FlxGroup;
 	protected var _p1RespawnTimer : Number = 0;
+	protected var _p1Score : Number = 0;
 	
 	protected var _player2 : Player2;
 	protected var _p2Life : HealthBar;
@@ -36,6 +37,7 @@ public class GameState extends FlxState
 	protected var _p2BaseLoc : FlxPoint;
 	protected var _p2Base : FlxGroup;
 	protected var _p2RespawnTimer : Number = 0;
+	protected var _p2Score : Number = 0;
 	
 	protected var walls : FlxGroup;
 	protected var goals : FlxGroup;
@@ -48,6 +50,7 @@ public class GameState extends FlxState
 	protected var playerTraps : FlxGroup;
 
 	protected var _camera : CameraCue;
+	protected var _transitioning : Boolean = false;
 	
 	override public function GameState()
 	{
@@ -172,6 +175,35 @@ public class GameState extends FlxState
 		}
 		
 		handle_input();
+		
+		// Check for victory condition.
+		if (_p1Score > 2 || _p2Score > 2) {
+			if (_p1Score > _p2Score) {
+				trace("Player 1 wins! " + _p1Score + "-" + _p2Score);
+				endGame(1);
+			} else if (_p1Score < _p2Score) {
+				trace("Player 2 wins! " + _p2Score + "-" + _p1Score);
+				endGame(2);
+			} else {
+				trace("Draw game! " + _p1Score + "-" + _p2Score);
+				endGame(3);
+			}
+		}
+	}
+		
+	protected function resetLevel():void
+	{
+		FlxG.state = new GameState();
+	}
+	
+	protected function endGame(outcome : uint):void
+	{
+		if (!_transitioning)
+		{
+			trace("Changing to endgame");
+			_transitioning = true;
+			// FlxG.fade.start(0xff000000, 0.4, function():void { _changingLevel = false; FlxG.state = new LevelIce(); } );
+		}
 	}
 	
 	protected function handle_input():void
@@ -233,7 +265,8 @@ public class GameState extends FlxState
 		{
 			if (Player(a).isCarrying()) {
 				Player(a).scoreGoal();
-				trace(Player(a).isCarrying() + " Player 1 scores!");
+				_p1Score++;
+				trace("Player 1 scores!");
 			}
 		}
 	}
@@ -244,6 +277,7 @@ public class GameState extends FlxState
 		{
 			if (Player(a).isCarrying()) {
 				Player(a).scoreGoal();
+				_p2Score++;
 				trace("Player 2 scores!");
 			}
 		}
