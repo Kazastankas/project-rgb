@@ -24,11 +24,6 @@ public class MobileHazard extends RGBSprite
 		maxVelocity.x = moveSpeed;
 		maxVelocity.y = moveSpeed;
 	}
-	
-	protected function distance(point : FlxPoint) : Number
-	{
-		return Math.sqrt(Math.pow(point.x - x, 2) + Math.pow(point.y - y, 2));
-	}
 }
 
 }
