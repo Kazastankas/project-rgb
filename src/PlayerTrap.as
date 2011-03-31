@@ -8,7 +8,7 @@ import org.flixel.*;
  */
 public class PlayerTrap extends Trap
 {
-	[Embed(source = "img/rgb_playertrap.png")] public var trapSprite : Class;
+	[Embed(source = "img/player_trap_spike.png")] public var trapSprite : Class;
 	protected var armingTimer : Number;
 	
 	public function PlayerTrap(X : int, Y : int, group : uint) 
