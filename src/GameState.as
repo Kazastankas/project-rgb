@@ -49,6 +49,7 @@ public class GameState extends FlxState
 	
 	protected var traps : FlxGroup;
 	protected var playerTraps : FlxGroup;
+	protected var trapPickups : FlxGroup;
 
 	protected var _camera : CameraCue;
 	protected var _transitioning : Boolean = false;
@@ -68,25 +69,24 @@ public class GameState extends FlxState
 		var j : int;
 		
 		walls = new FlxGroup();
-		
 		generateOuterWalls();
 		generateRedWalls();
 		generateGreenWalls();
 		generateBlueWalls();
-		
 		add(walls);
 		
 		hazards = new FlxGroup();
-		
 		buzzsaws = new FlxGroup();
 		generateBuzzsaws();
 		hazards.add(buzzsaws);
-		
 		patrollers = new FlxGroup();
 		generatePatrollers();
 		hazards.add(patrollers);
-		
 		add(hazards);
+		
+		trapPickups = new FlxGroup();
+		generateTrapPickups();
+		add(trapPickups);
 		
 		traps = new FlxGroup();
 		playerTraps = new FlxGroup();
@@ -154,6 +154,7 @@ public class GameState extends FlxState
 		FlxU.overlap(players, _p2Base, check_p2_capture);
 		FlxU.overlap(players, hazards, process_hazard);
 		FlxU.overlap(players, traps, process_trap);
+		FlxU.overlap(players, trapPickups, process_pickup);
 		
 		// Make sure players can't go through walls or other players.
 		FlxU.collide(players, players);
@@ -217,7 +218,7 @@ public class GameState extends FlxState
 		{
 			p2SwitchColor();
 		}
-		if (FlxG.keys.justPressed('E')) // Player 1 trap
+		if (FlxG.keys.justPressed('E') && _player1.useTrap()) // Player 1 trap
 		{
 			var s1 : PlayerTrap;
 			s1 = (playerTraps.getFirstAvail() as PlayerTrap);
@@ -226,7 +227,7 @@ public class GameState extends FlxState
 				s1.create(_player1.x, _player1.y, _p1ColorMode);
 			}
 		}
-		if (FlxG.keys.justPressed('PERIOD')) // Player 2 trap
+		if (FlxG.keys.justPressed('PERIOD') && _player2.useTrap()) // Player 2 trap
 		{
 			var s2 : PlayerTrap;
 			s2 = (playerTraps.getFirstAvail() as PlayerTrap);
@@ -314,9 +315,6 @@ public class GameState extends FlxState
 		if (a is Player)
 		{
 			Player(a).hurt(1);
-		} else if (b is Player)
-		{
-			Player(b).hurt(1);
 		}
 	}
 	
@@ -326,10 +324,16 @@ public class GameState extends FlxState
 		{
 			Player(a).hurt(3);
 			b.kill();
-		} else if (b is Player && a is Trap && Trap(a).isArmed())
+		}
+	}
+	
+	protected function process_pickup(a : FlxObject, b : FlxObject):void
+	{
+		if (a is Player && b is TrapPickup)
 		{
-			Player(b).hurt(3);
-			a.kill();
+			if (Player(a).getTrap()) {
+				TrapPickup(b).kill();
+			}
 		}
 	}
 	
@@ -557,6 +561,35 @@ public class GameState extends FlxState
 		bluePatroller = new Patroller(500, 540, 100, RGBSprite.B);
 		bluePatroller.addWaypoint(new FlxPoint(525, 540));
 		patrollers.add(bluePatroller);
+	}
+	
+	private function generateTrapPickups() : void
+	{
+		trapPickups.add(new TrapPickup(175, 75));
+		trapPickups.add(new TrapPickup(775, 75));
+		trapPickups.add(new TrapPickup(600, 100));
+		trapPickups.add(new TrapPickup(400, 125));
+		trapPickups.add(new TrapPickup(100, 150));
+		trapPickups.add(new TrapPickup(225, 200));
+		trapPickups.add(new TrapPickup(575, 200));
+		trapPickups.add(new TrapPickup(775, 200));
+		trapPickups.add(new TrapPickup(700, 225));
+		trapPickups.add(new TrapPickup(400, 250));
+		trapPickups.add(new TrapPickup(500, 325));
+		trapPickups.add(new TrapPickup(400, 350));
+		trapPickups.add(new TrapPickup(600, 375));
+		trapPickups.add(new TrapPickup(200, 375));
+		trapPickups.add(new TrapPickup(325, 425));
+		trapPickups.add(new TrapPickup(700, 450));
+		trapPickups.add(new TrapPickup(75, 475));
+		trapPickups.add(new TrapPickup(425, 475));
+		trapPickups.add(new TrapPickup(525, 500));
+		trapPickups.add(new TrapPickup(800, 500));
+		trapPickups.add(new TrapPickup(400, 550));
+		trapPickups.add(new TrapPickup(75, 575));
+		trapPickups.add(new TrapPickup(200, 575));
+		trapPickups.add(new TrapPickup(300, 600));
+		trapPickups.add(new TrapPickup(700, 600));
 	}
 }
 }
