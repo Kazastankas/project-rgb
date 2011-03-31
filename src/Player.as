@@ -14,6 +14,7 @@ public class Player extends FlxSprite
 	protected var allegiance : Number = 0;
 	protected var carryingGoal : Boolean;
 	protected var carriedGoal : Goal;
+	protected var hasTrap : Boolean;
 	
 	protected var invincibilityTimer : Number = 0;
 	
@@ -29,6 +30,7 @@ public class Player extends FlxSprite
 		
 		// Mechanics stuff go here.
 		health = 6;
+		hasTrap = false;
 		carryingGoal = false;
 		carriedGoal = null;
 	}
@@ -37,6 +39,7 @@ public class Player extends FlxSprite
 	{
 		velocity.x = velocity.y = 0;
 		health = 6;
+		hasTrap = false;
 		carryingGoal = false;
 		carriedGoal = null;
 		color = 0xFFFFFF;
@@ -65,6 +68,26 @@ public class Player extends FlxSprite
 	public function getAllegiance():Number
 	{
 		return allegiance;
+	}
+	
+	public function getTrap():Boolean
+	{
+		if (hasTrap) { // Return unsuccessful if you already have one.
+			return false;
+		} else {
+			hasTrap = true;
+			return true;
+		}
+	}
+	
+	public function useTrap():Boolean
+	{
+		if (!hasTrap) { // Return unsuccessful if you don't have one.
+			return false;
+		} else {
+			hasTrap = false;
+			return true;
+		}
 	}
 	
 	override public function kill():void

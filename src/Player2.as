@@ -24,6 +24,7 @@ public class Player2 extends Player
 		
 		// Animation details go here.
 		addAnimation("idle", [0, 1, 2, 3], 5, true);
+		addAnimation("armed", [4, 5, 6, 7], 5, true);
 		play("idle");
 	}
 	
@@ -35,6 +36,24 @@ public class Player2 extends Player
 	override public function hurt(damage : Number):void
 	{
 		super.hurt(damage);
+	}
+	
+	override public function getTrap():Boolean
+	{
+		var ret : Boolean = super.getTrap();
+		if (hasTrap) {
+			play("armed");
+		}
+		return ret;
+	}
+	
+	override public function useTrap():Boolean
+	{
+		var ret : Boolean = super.useTrap();
+		if (!hasTrap) {
+			play("idle");
+		}
+		return ret;
 	}
 	
 	override public function update():void
