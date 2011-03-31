@@ -20,10 +20,12 @@ public class GameState extends FlxState
 	
 	// This is static across the entire game state, which is not sustainable for multiplayer.
 	// Will have to be either player-based or hackily have two color modes.
-	static public var colorMode : uint = ALL;
+	static public var _p1ColorMode : uint = R;
+	static public var _player1 : Player1;
+	static public var _p2ColorMode : uint = R;
+	static public var _player2 : Player2;
 	
 	protected var players : FlxGroup;
-	protected var _player1 : Player1;
 	protected var _p1Life : HealthBar;
 	protected var _p1Start : FlxPoint;
 	protected var _p1BaseLoc : FlxPoint;
@@ -31,7 +33,6 @@ public class GameState extends FlxState
 	protected var _p1RespawnTimer : Number = 0;
 	protected var _p1Score : Number = 0;
 	
-	protected var _player2 : Player2;
 	protected var _p2Life : HealthBar;
 	protected var _p2Start : FlxPoint;
 	protected var _p2BaseLoc : FlxPoint;
@@ -208,43 +209,67 @@ public class GameState extends FlxState
 	
 	protected function handle_input():void
 	{
-		if (FlxG.keys.justPressed('Q')) // print out cursor location
+		if (FlxG.keys.justPressed('Q')) // Color mode switch
 		{
-			trace("X: " + FlxG.mouse.x + " Y: " + FlxG.mouse.y);
+			p1SwitchColor();
 		}
-		if (FlxG.keys.justPressed('Z')) // color mode switches
+		if (FlxG.keys.justPressed('SLASH'))
 		{
-			colorMode = ALL;
+			p2SwitchColor();
 		}
-		if (FlxG.keys.justPressed('X'))
-		{
-			colorMode = R;
-		}
-		if (FlxG.keys.justPressed('C'))
-		{
-			colorMode = G;
-		}
-		if (FlxG.keys.justPressed('V'))
-		{
-			colorMode = B;
-		}
-		if (FlxG.keys.justPressed('SLASH')) // Player 1 trap
+		if (FlxG.keys.justPressed('E')) // Player 1 trap
 		{
 			var s1 : PlayerTrap;
 			s1 = (playerTraps.getFirstAvail() as PlayerTrap);
 			if (s1 != null)
 			{
-				s1.create(_player1.x, _player1.y, colorMode);
+				s1.create(_player1.x, _player1.y, _p1ColorMode);
 			}
 		}
-		if (FlxG.keys.justPressed('E')) // Player 2 trap
+		if (FlxG.keys.justPressed('PERIOD')) // Player 2 trap
 		{
 			var s2 : PlayerTrap;
 			s2 = (playerTraps.getFirstAvail() as PlayerTrap);
 			if (s2 != null)
 			{
-				s2.create(_player2.x, _player2.y, colorMode);
+				s2.create(_player2.x, _player2.y, _p2ColorMode);
 			}
+		}
+	}
+	
+	protected function p1SwitchColor():void
+	{
+		switch (_p1ColorMode) {
+			case R:
+				_p1ColorMode = G;
+				break;
+			case G:
+				_p1ColorMode = B;
+				break;
+			case B:
+				_p1ColorMode = R;
+				break;
+			default:
+				_p1ColorMode = ALL;
+				break;
+		}
+	}
+	
+	protected function p2SwitchColor():void
+	{
+		switch (_p2ColorMode) {
+			case R:
+				_p2ColorMode = G;
+				break;
+			case G:
+				_p2ColorMode = B;
+				break;
+			case B:
+				_p2ColorMode = R;
+				break;
+			default:
+				_p2ColorMode = ALL;
+				break;
 		}
 	}
 	
@@ -454,7 +479,15 @@ public class GameState extends FlxState
 		var j : uint;
 		
 		// Headliner
-		for (i = 0; i < 20; i++) {
+		for (i = 0; i < 3; i++) {
+			blueWall = new Wall(325 + 25 * i, 75, 25, 25, RGBSprite.B);
+			walls.add(blueWall);
+		}
+		for (i = 5; i < 10; i++) {
+			blueWall = new Wall(325 + 25 * i, 75, 25, 25, RGBSprite.B);
+			walls.add(blueWall);
+		}
+		for (i = 14; i < 17; i++) {
 			blueWall = new Wall(325 + 25 * i, 75, 25, 25, RGBSprite.B);
 			walls.add(blueWall);
 		}
@@ -476,18 +509,24 @@ public class GameState extends FlxState
 		}
 		for (i = 0; i < 6; i++) {
 			for (j = 0; j < 4; j++) {
-				blueWall = new Wall(425 + 25 * i, 350 + 25 * j, 25, 25, RGBSprite.B);
-				walls.add(blueWall);
+				if (i + j > 0) {
+					blueWall = new Wall(425 + 25 * i, 350 + 25 * j, 25, 25, RGBSprite.B);
+					walls.add(blueWall);
+				}
 			}
 		}
 		
 		// Lower left smiley
 		for (i = 0; i < 2; i++) {
 			for (j = 0; j < 2; j++) {
-				blueWall = new Wall(150 + 25 * i, 450 + 25 * j, 25, 25, RGBSprite.B);
-				walls.add(blueWall);
-				blueWall = new Wall(150 + 25 * i, 575 + 25 * j, 25, 25, RGBSprite.B);
-				walls.add(blueWall);
+				if (!(j == 1 && i == 0)) {
+					blueWall = new Wall(150 + 25 * i, 450 + 25 * j, 25, 25, RGBSprite.B);
+					walls.add(blueWall);
+				}
+				if (i + j > 0) {
+					blueWall = new Wall(150 + 25 * i, 575 + 25 * j, 25, 25, RGBSprite.B);
+					walls.add(blueWall);
+				}
 			}
 		}
 		for (i = 0; i < 2; i++) {
