@@ -32,7 +32,7 @@ public class RGBSprite extends FlxSprite
 	
 	override public function update() : void
 	{
-		// Set the necessary tint.
+		// Figure out what colors to show given player proximity.
 		updateColorMode();
 			
 		// If the game's color mode coincides with our group tagging and we aren't in, fade in.
