@@ -56,10 +56,10 @@ public class GameState extends FlxState
 	
 	override public function GameState()
 	{
-		_p1Start = new FlxPoint(50, 50);
-		_p1BaseLoc = new FlxPoint(50, 50);
-		_p2Start = new FlxPoint(800, 600);
-		_p2BaseLoc = new FlxPoint(775, 575);
+		_p1Start = new FlxPoint(1, 1);
+		_p1BaseLoc = new FlxPoint(0, 0);
+		_p2Start = new FlxPoint(750, 550);
+		_p2BaseLoc = new FlxPoint(725, 525);
 		_p1ColorMode = R;
 		_p2ColorMode = R;
 		super();
@@ -340,10 +340,10 @@ public class GameState extends FlxState
 	// Outer walls.
 	private function generateOuterWalls() : void
 	{
-		var northWall : Wall = new Wall(50, 30, 800, 20, RGBSprite.R | RGBSprite.G | RGBSprite.B);
-		var westWall : Wall = new Wall(30, 30, 20, 640, RGBSprite.R | RGBSprite.G | RGBSprite.B);
-		var eastWall : Wall = new Wall(850, 30, 20, 640, RGBSprite.R | RGBSprite.G | RGBSprite.B);
-		var southWall : Wall = new Wall(50, 650, 800, 20, RGBSprite.R | RGBSprite.G | RGBSprite.B);
+		var northWall : Wall = new Wall(0, 0, 800, 1, RGBSprite.R | RGBSprite.G | RGBSprite.B);
+		var westWall : Wall = new Wall(0, 1, 1, 598, RGBSprite.R | RGBSprite.G | RGBSprite.B);
+		var eastWall : Wall = new Wall(799, 1, 1, 598, RGBSprite.R | RGBSprite.G | RGBSprite.B);
+		var southWall : Wall = new Wall(0, 599, 800, 1, RGBSprite.R | RGBSprite.G | RGBSprite.B);
 		walls.add(northWall);
 		walls.add(westWall);
 		walls.add(eastWall);
@@ -358,62 +358,62 @@ public class GameState extends FlxState
 		
 		// top left L
 		for (i = 0; i < 6; i++) {
-			redWall = new Wall(50 + 25 * i, 175, 25, 25, RGBSprite.R);
+			redWall = new Wall(25 * i, 125, 25, 25, RGBSprite.R);
 			walls.add(redWall);
 		}
 		for (i = 0; i < 2; i++) {
-			redWall = new Wall(175, 125 + 25 * i, 25, 25, RGBSprite.R);
+			redWall = new Wall(125, 75 + 25 * i, 25, 25, RGBSprite.R);
 			walls.add(redWall);
 		}
 		
 		// vert bar
 		for (i = 0; i < 4; i++) {
-			redWall = new Wall(250, 75 + 25 * i, 25, 25, RGBSprite.R);
+			redWall = new Wall(200, 25 + 25 * i, 25, 25, RGBSprite.R);
 			walls.add(redWall);
 		}
 		
 		// horz bars (the -_-)
 		for (i = 0; i < 5; i++) {
-			redWall = new Wall(325 + 25 * i, 150, 25, 25, RGBSprite.R);
+			redWall = new Wall(275 + 25 * i, 100, 25, 25, RGBSprite.R);
 			walls.add(redWall);
-			redWall = new Wall(575 + 25 * i, 150, 25, 25, RGBSprite.R);
+			redWall = new Wall(525 + 25 * i, 100, 25, 25, RGBSprite.R);
 			walls.add(redWall);
 		}
 		for (i = 0; i < 6; i++) {
-			redWall = new Wall(450 + 25 * i, 275, 25, 25, RGBSprite.R);
+			redWall = new Wall(400 + 25 * i, 225, 25, 25, RGBSprite.R);
 			walls.add(redWall);
 		}
 		
 		// vert bar
 		for (i = 0; i < 7; i++) {
-			redWall = new Wall(725, 200 + 25 * i, 25, 25, RGBSprite.R);
+			redWall = new Wall(675, 150 + 25 * i, 25, 25, RGBSprite.R);
 			walls.add(redWall);
 		}
 		
 		// lower case h with a thing
 		for (i = 0; i < 4; i++) {
-			redWall = new Wall(250 + 25 * i, 400, 25, 25, RGBSprite.R);
+			redWall = new Wall(200 + 25 * i, 350, 25, 25, RGBSprite.R);
 			walls.add(redWall);
 		}
 		for (i = 0; i < 9; i++) {
-			redWall = new Wall(350, 375 + 25 * i, 25, 25, RGBSprite.R);
+			redWall = new Wall(300, 325 + 25 * i, 25, 25, RGBSprite.R);
 			walls.add(redWall);
 		}
 		for (i = 0; i < 4; i++) {
-			redWall = new Wall(375 + 25 * i, 500, 25, 25, RGBSprite.R);
+			redWall = new Wall(325 + 25 * i, 450, 25, 25, RGBSprite.R);
 			walls.add(redWall);
 		}
 		for (i = 0; i < 3; i++) {
-			redWall = new Wall(450, 525 + 25 * i, 25, 25, RGBSprite.R);
+			redWall = new Wall(400, 475 + 25 * i, 25, 25, RGBSprite.R);
 			walls.add(redWall);
 		}
 		
 		// lower right L shape
 		for (i = 0; i < 6; i++) {
-			redWall = new Wall(600 + 25 * i, 525, 25, 25, RGBSprite.R);
+			redWall = new Wall(550 + 25 * i, 475, 25, 25, RGBSprite.R);
 			walls.add(redWall);
 		}
-		redWall = new Wall(725, 500, 25, 25, RGBSprite.R);
+		redWall = new Wall(675, 450, 25, 25, RGBSprite.R);
 		walls.add(redWall);
 	}
 	
@@ -426,51 +426,51 @@ public class GameState extends FlxState
 		
 		// between the -_-
 		for (i = 0; i < 3; i++) {
-			greenWall = new Wall(500, 150 + 25 * i, 25, 25, RGBSprite.G);
+			greenWall = new Wall(450, 100 + 25 * i, 25, 25, RGBSprite.G);
 			walls.add(greenWall);
 		}
 		
 		// middle vert bars
 		for (i = 0; i < 7; i++) {
-			greenWall = new Wall(275, 225 + 25 * i, 25, 25, RGBSprite.G);
+			greenWall = new Wall(225, 175 + 25 * i, 25, 25, RGBSprite.G);
 			walls.add(greenWall);
 		}
 		for (i = 0; i < 9; i++) {
-			greenWall = new Wall(650, 225 + 25 * i, 25, 25, RGBSprite.G);
+			greenWall = new Wall(600, 175 + 25 * i, 25, 25, RGBSprite.G);
 			walls.add(greenWall);
 		}
 		
 		// left blocks
 		for (i = 0; i < 4; i++) {
 			for (j = 0; j < 2; j++) {
-				greenWall = new Wall(50 + 25 * j, 375 + 25 * i, 25, 25, RGBSprite.G);
+				greenWall = new Wall(25 * j, 325 + 25 * i, 25, 25, RGBSprite.G);
 				walls.add(greenWall);
 			}
 		}
 		for (i = 0; i < 3; i++) {
-			greenWall = new Wall(50 + 25 * i, 525, 25, 25, RGBSprite.G);
+			greenWall = new Wall(25 * i, 475, 25, 25, RGBSprite.G);
 			walls.add(greenWall);
 		}
 		
 		// right blocks
 		for (i = 0; i < 3; i++) {
 			for (j = 0; j < 3; j++) {
-				greenWall = new Wall(800, 125 + 125 * j + 25 * i, 25, 25, RGBSprite.G);
+				greenWall = new Wall(750, 75 + 125 * j + 25 * i, 25, 25, RGBSprite.G);
 				walls.add(greenWall);
-				greenWall = new Wall(825, 125 + 125 * j + 25 * i, 25, 25, RGBSprite.G);
+				greenWall = new Wall(775, 75 + 125 * j + 25 * i, 25, 25, RGBSprite.G);
 				walls.add(greenWall);
 			}
 		}
-		greenWall = new Wall(750, 425, 25, 25, RGBSprite.G);
+		greenWall = new Wall(700, 375, 25, 25, RGBSprite.G);
 		walls.add(greenWall);
-		greenWall = new Wall(775, 425, 25, 25, RGBSprite.G);
+		greenWall = new Wall(725, 375, 25, 25, RGBSprite.G);
 		walls.add(greenWall);
 		
 		// bottom block
 		for (i = 0; i < 6; i++) {
-			greenWall = new Wall(525 + 25 * i, 600, 25, 25, RGBSprite.G);
+			greenWall = new Wall(475 + 25 * i, 550, 25, 25, RGBSprite.G);
 			walls.add(greenWall);
-			greenWall = new Wall(525 + 25 * i, 625, 25, 25, RGBSprite.G);
+			greenWall = new Wall(475 + 25 * i, 575, 25, 25, RGBSprite.G);
 			walls.add(greenWall);
 		}
 	}
@@ -484,22 +484,22 @@ public class GameState extends FlxState
 		
 		// Headliner
 		for (i = 0; i < 3; i++) {
-			blueWall = new Wall(325 + 25 * i, 75, 25, 25, RGBSprite.B);
+			blueWall = new Wall(275 + 25 * i, 25, 25, 25, RGBSprite.B);
 			walls.add(blueWall);
 		}
 		for (i = 5; i < 10; i++) {
-			blueWall = new Wall(325 + 25 * i, 75, 25, 25, RGBSprite.B);
+			blueWall = new Wall(275 + 25 * i, 25, 25, 25, RGBSprite.B);
 			walls.add(blueWall);
 		}
 		for (i = 14; i < 17; i++) {
-			blueWall = new Wall(325 + 25 * i, 75, 25, 25, RGBSprite.B);
+			blueWall = new Wall(275 + 25 * i, 25, 25, 25, RGBSprite.B);
 			walls.add(blueWall);
 		}
 		
 		// Left block
 		for (i = 0; i < 6; i++) {
 			for (j = 0; j < 5; j++) {
-				blueWall = new Wall(50 + 25 * i, 250 + 25 * j, 25, 25, RGBSprite.B);
+				blueWall = new Wall(25 * i, 200 + 25 * j, 25, 25, RGBSprite.B);
 				walls.add(blueWall);
 			}
 		}
@@ -507,14 +507,14 @@ public class GameState extends FlxState
 		// Center blocks
 		for (i = 0; i < 2; i++) {
 			for (j = 0; j < 2; j++) {
-				blueWall = new Wall(350 + 25 * i, 275 + 25 * j, 25, 25, RGBSprite.B);
+				blueWall = new Wall(300 + 25 * i, 225 + 25 * j, 25, 25, RGBSprite.B);
 				walls.add(blueWall);
 			}
 		}
 		for (i = 0; i < 6; i++) {
 			for (j = 0; j < 4; j++) {
 				if (i + j > 0) {
-					blueWall = new Wall(425 + 25 * i, 350 + 25 * j, 25, 25, RGBSprite.B);
+					blueWall = new Wall(375 + 25 * i, 300 + 25 * j, 25, 25, RGBSprite.B);
 					walls.add(blueWall);
 				}
 			}
@@ -524,18 +524,18 @@ public class GameState extends FlxState
 		for (i = 0; i < 2; i++) {
 			for (j = 0; j < 2; j++) {
 				if (!(j == 1 && i == 0)) {
-					blueWall = new Wall(150 + 25 * i, 450 + 25 * j, 25, 25, RGBSprite.B);
+					blueWall = new Wall(100 + 25 * i, 400 + 25 * j, 25, 25, RGBSprite.B);
 					walls.add(blueWall);
 				}
 				if (i + j > 0) {
-					blueWall = new Wall(150 + 25 * i, 575 + 25 * j, 25, 25, RGBSprite.B);
+					blueWall = new Wall(100 + 25 * i, 525 + 25 * j, 25, 25, RGBSprite.B);
 					walls.add(blueWall);
 				}
 			}
 		}
 		for (i = 0; i < 2; i++) {
 			for (j = 0; j < 5; j++) {
-				blueWall = new Wall(250 + 25 * i, 475 + 25 * j, 25, 25, RGBSprite.B);
+				blueWall = new Wall(200 + 25 * i, 425 + 25 * j, 25, 25, RGBSprite.B);
 				walls.add(blueWall);
 			}
 		}
@@ -544,52 +544,52 @@ public class GameState extends FlxState
 	private function generateBuzzsaws() : void
 	{
 		var greenSaw : BuzzSaw;
-		greenSaw = new BuzzSaw(493, 193, RGBSprite.G);
+		greenSaw = new BuzzSaw(443, 143, RGBSprite.G);
 		buzzsaws.add(greenSaw);
-		greenSaw = new BuzzSaw(268, 218, RGBSprite.G);
+		greenSaw = new BuzzSaw(218, 168, RGBSprite.G);
 		buzzsaws.add(greenSaw);
-		greenSaw = new BuzzSaw(643, 418, RGBSprite.G);
+		greenSaw = new BuzzSaw(593, 368, RGBSprite.G);
 		buzzsaws.add(greenSaw);
 	}
 	
 	private function generatePatrollers() : void
 	{
 		var bluePatroller : Patroller;
-		bluePatroller = new Patroller(350, 200, 100, RGBSprite.B);
-		bluePatroller.addWaypoint(new FlxPoint(350, 225));
+		bluePatroller = new Patroller(300, 150, 100, RGBSprite.B);
+		bluePatroller.addWaypoint(new FlxPoint(300, 175));
 		patrollers.add(bluePatroller);
-		bluePatroller = new Patroller(500, 540, 100, RGBSprite.B);
-		bluePatroller.addWaypoint(new FlxPoint(525, 540));
+		bluePatroller = new Patroller(450, 490, 100, RGBSprite.B);
+		bluePatroller.addWaypoint(new FlxPoint(475, 490));
 		patrollers.add(bluePatroller);
 	}
 	
 	private function generateTrapPickups() : void
 	{
-		trapPickups.add(new TrapPickup(175, 75));
-		trapPickups.add(new TrapPickup(775, 75));
-		trapPickups.add(new TrapPickup(600, 100));
-		trapPickups.add(new TrapPickup(400, 125));
-		trapPickups.add(new TrapPickup(100, 150));
-		trapPickups.add(new TrapPickup(225, 200));
-		trapPickups.add(new TrapPickup(575, 200));
-		trapPickups.add(new TrapPickup(775, 200));
-		trapPickups.add(new TrapPickup(700, 225));
-		trapPickups.add(new TrapPickup(400, 250));
-		trapPickups.add(new TrapPickup(500, 325));
-		trapPickups.add(new TrapPickup(400, 350));
-		trapPickups.add(new TrapPickup(600, 375));
-		trapPickups.add(new TrapPickup(200, 375));
-		trapPickups.add(new TrapPickup(325, 425));
-		trapPickups.add(new TrapPickup(700, 450));
-		trapPickups.add(new TrapPickup(75, 475));
-		trapPickups.add(new TrapPickup(425, 475));
-		trapPickups.add(new TrapPickup(525, 500));
-		trapPickups.add(new TrapPickup(800, 500));
-		trapPickups.add(new TrapPickup(400, 550));
-		trapPickups.add(new TrapPickup(75, 575));
-		trapPickups.add(new TrapPickup(200, 575));
-		trapPickups.add(new TrapPickup(300, 600));
-		trapPickups.add(new TrapPickup(700, 600));
+		trapPickups.add(new TrapPickup(125, 25));
+		trapPickups.add(new TrapPickup(725, 25));
+		trapPickups.add(new TrapPickup(550, 50));
+		trapPickups.add(new TrapPickup(350, 75));
+		trapPickups.add(new TrapPickup(50, 100));
+		trapPickups.add(new TrapPickup(175, 150));
+		trapPickups.add(new TrapPickup(525, 150));
+		trapPickups.add(new TrapPickup(725, 150));
+		trapPickups.add(new TrapPickup(650, 175));
+		trapPickups.add(new TrapPickup(350, 200));
+		trapPickups.add(new TrapPickup(450, 275));
+		trapPickups.add(new TrapPickup(350, 300));
+		trapPickups.add(new TrapPickup(550, 325));
+		trapPickups.add(new TrapPickup(150, 325));
+		trapPickups.add(new TrapPickup(275, 375));
+		trapPickups.add(new TrapPickup(650, 400));
+		trapPickups.add(new TrapPickup(25, 425));
+		trapPickups.add(new TrapPickup(375, 425));
+		trapPickups.add(new TrapPickup(475, 450));
+		trapPickups.add(new TrapPickup(750, 450));
+		trapPickups.add(new TrapPickup(350, 500));
+		trapPickups.add(new TrapPickup(25, 525));
+		trapPickups.add(new TrapPickup(150, 525));
+		trapPickups.add(new TrapPickup(250, 550));
+		trapPickups.add(new TrapPickup(650, 550));
 	}
 }
 }

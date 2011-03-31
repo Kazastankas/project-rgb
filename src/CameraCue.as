@@ -11,7 +11,7 @@ public class CameraCue extends FlxObject
 	
 	public function CameraCue() 
 	{
-		this.target = new FlxPoint(FlxG.width / 2 + 50, FlxG.height / 2 + 50);
+		this.target = new FlxPoint(FlxG.width / 2, FlxG.height / 2);
 	}
 	
 	override public function update():void
