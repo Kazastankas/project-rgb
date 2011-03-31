@@ -16,6 +16,7 @@ public class RGBSprite extends FlxSprite
 	protected var spriteGroup : uint = 0;
 	protected var fadeIn : Boolean;
 	protected var fadeOut : Boolean;
+	protected var colorMode : uint = 0;
 	
 	public function RGBSprite(X : int, Y : int, group : uint) 
 	{
@@ -24,6 +25,7 @@ public class RGBSprite extends FlxSprite
 		alpha = 1.0;
 		fadeIn = false;
 		fadeOut = false;
+		colorMode = 0;
 		
 		setTint();
 	}
@@ -31,15 +33,16 @@ public class RGBSprite extends FlxSprite
 	override public function update() : void
 	{
 		// Set the necessary tint.
+		updateColorMode();
 			
 		// If the game's color mode coincides with our group tagging and we aren't in, fade in.
 		// Otherwise, fade out.
-		if (alpha < 1.0 && (GameState.colorMode & spriteGroup) > 0) {
+		if (alpha < 1.0 && (colorMode & spriteGroup) > 0) {
 			alpha = Math.max(alpha, 0.1);
 			fadeIn = true;
 			fadeOut = false;
 			setTint();
-		} else if (alpha > 0.0 && (GameState.colorMode & spriteGroup) == 0) {
+		} else if (alpha > 0.0 && (colorMode & spriteGroup) == 0) {
 			fadeIn = false;
 			fadeOut = true;
 		}
@@ -72,6 +75,29 @@ public class RGBSprite extends FlxSprite
 		super.update();
 	}
 	
+	protected function distance(point : FlxPoint) : Number
+	{
+		return Math.sqrt(Math.pow(point.x - x, 2) + Math.pow(point.y - y, 2));
+	}
+	
+	protected function dist_coords(x1 : Number, y1 : Number) : Number
+	{
+		return Math.sqrt(Math.pow(x1 - x, 2) + Math.pow(y1 - y, 2));
+	}
+	
+	protected function updateColorMode() : void
+	{
+		// Check distance from players.
+		colorMode = 0;
+		
+		// making new poits
+		if (dist_coords(GameState._player1.x, GameState._player1.y) < 200) {
+			colorMode |= GameState._p1ColorMode;
+		}
+		if (dist_coords(GameState._player2.x, GameState._player2.y) < 200) {
+			colorMode |= GameState._p2ColorMode;
+		}
+	}
 	protected function setSpriteGroup(group : uint) : void
 	{
 		spriteGroup = group & 0x7;
@@ -79,7 +105,7 @@ public class RGBSprite extends FlxSprite
 	
 	protected function setTint() : void
 	{
-		switch (GameState.colorMode) {
+		switch (colorMode & spriteGroup) {
 			case R:
 				color = 0xb70909;
 				break;

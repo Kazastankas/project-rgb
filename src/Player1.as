@@ -46,23 +46,23 @@ public class Player1 extends Player
 		maxVelocity.y = runSpeed;
 		
 		// Process input for movement.
-		if (FlxG.keys.LEFT)
+		if (FlxG.keys.A)
 		{
 			facing = LEFT;
 			acceleration.x -= drag.x;
 		}
-		else if (FlxG.keys.RIGHT)
+		else if (FlxG.keys.D)
 		{
 			facing = RIGHT;
 			acceleration.x += drag.x;
 		}
 		
-		if (FlxG.keys.UP)
+		if (FlxG.keys.W)
 		{
 			facing = UP;
 			acceleration.y -= drag.y;
 		}
-		else if (FlxG.keys.DOWN)
+		else if (FlxG.keys.S)
 		{
 			facing = DOWN;
 			acceleration.y += drag.y;
