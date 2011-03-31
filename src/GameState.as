@@ -60,6 +60,8 @@ public class GameState extends FlxState
 		_p1BaseLoc = new FlxPoint(50, 50);
 		_p2Start = new FlxPoint(800, 600);
 		_p2BaseLoc = new FlxPoint(775, 575);
+		_p1ColorMode = R;
+		_p2ColorMode = R;
 		super();
 	}
 	
@@ -182,29 +184,27 @@ public class GameState extends FlxState
 		if (_p1Score > 2 || _p2Score > 2) {
 			if (_p1Score > _p2Score) {
 				trace("Player 1 wins! " + _p1Score + "-" + _p2Score);
-				endGame(1);
+				endGame(1, _p1Score, _p2Score);
 			} else if (_p1Score < _p2Score) {
 				trace("Player 2 wins! " + _p2Score + "-" + _p1Score);
-				endGame(2);
+				endGame(2, _p2Score, _p1Score);
 			} else {
 				trace("Draw game! " + _p1Score + "-" + _p2Score);
-				endGame(3);
+				endGame(3, _p1Score, _p2Score);
 			}
 		}
 	}
-		
-	protected function resetLevel():void
-	{
-		FlxG.state = new GameState();
-	}
 	
-	protected function endGame(outcome : uint):void
+	protected function endGame(outcome : uint, score1 : uint, score2 : uint):void
 	{
 		if (!_transitioning)
 		{
 			trace("Changing to endgame");
 			_transitioning = true;
-			// FlxG.fade.start(0xff000000, 0.4, function():void { _changingLevel = false; FlxG.state = new LevelIce(); } );
+			FlxG.fade.start(0xff000000, 0.4, function():void {
+												_transitioning = false; 
+												FlxG.state = new EndState(outcome, score1, score2);
+											 });
 		}
 	}
 	
