@@ -59,8 +59,8 @@ public class Player2 extends Player
 	override public function update():void
 	{
 		// Physics value resets.
-		acceleration.x = 0;
-		acceleration.y = 0;
+		velocity.x = 0;
+		velocity.y = 0;
 		maxVelocity.x = runSpeed;
 		maxVelocity.y = runSpeed;
 		
@@ -68,23 +68,23 @@ public class Player2 extends Player
 		if (FlxG.keys.LEFT)
 		{
 			facing = LEFT;
-			acceleration.x -= drag.x;
+			velocity.x -= drag.x * 0.4;
 		}
 		else if (FlxG.keys.RIGHT)
 		{
 			facing = RIGHT;
-			acceleration.x += drag.x;
+			velocity.x += drag.x * 0.4;
 		}
 		
 		if (FlxG.keys.UP)
 		{
 			facing = UP;
-			acceleration.y -= drag.y;
+			velocity.y -= drag.y * 0.4;
 		}
 		else if (FlxG.keys.DOWN)
 		{
 			facing = DOWN;
-			acceleration.y += drag.y;
+			velocity.y += drag.y * 0.4;
 		}
 		
 		super.update();
