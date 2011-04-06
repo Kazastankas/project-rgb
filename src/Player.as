@@ -9,6 +9,8 @@ import org.flixel.data.FlxPanel;
  */
 public class Player extends FlxSprite
 {
+	static public const defaultHealth : Number = 6;
+	
 	protected var runSpeed : Number = 200;
 	
 	protected var allegiance : Number = 0;
@@ -29,7 +31,7 @@ public class Player extends FlxSprite
 		maxVelocity.y = runSpeed;
 		
 		// Mechanics stuff go here.
-		health = 6;
+		health = defaultHealth;
 		hasTrap = false;
 		carryingGoal = false;
 		carriedGoal = null;

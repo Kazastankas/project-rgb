@@ -25,6 +25,13 @@ public class GameState extends FlxState
 	static public var _p2ColorMode : uint = R;
 	static public var _player2 : Player2;
 	
+	// Other constants. Tweak as necessary.
+	static public const cooldownTimer : Number = 0.5;
+	static public const trapDamage : Number = 2;
+	static public const hazardDamage : Number = 1;
+	static public const winningScore : Number = 3;
+	static public const respawnTime : Number = 1.5;
+	
 	protected var players : FlxGroup;
 	protected var _p1Life : HealthBar;
 	protected var _p1Start : FlxPoint;
@@ -32,6 +39,7 @@ public class GameState extends FlxState
 	protected var _p1Base : FlxGroup;
 	protected var _p1RespawnTimer : Number = 0;
 	protected var _p1Score : Number = 0;
+	protected var _p1Cooldown : Number = 0;
 	
 	protected var _p2Life : HealthBar;
 	protected var _p2Start : FlxPoint;
@@ -39,6 +47,7 @@ public class GameState extends FlxState
 	protected var _p2Base : FlxGroup;
 	protected var _p2RespawnTimer : Number = 0;
 	protected var _p2Score : Number = 0;
+	protected var _p2Cooldown : Number = 0;
 	
 	protected var walls : FlxGroup;
 	protected var goals : FlxGroup;
@@ -162,17 +171,31 @@ public class GameState extends FlxState
 		FlxU.collide(players, players);
 		FlxU.collide(players, walls);
 		
+		// Tick down color mode change timers.
+		if (_p1Cooldown > 0) {
+			_p1Cooldown -= FlxG.elapsed;
+			if (_p1Cooldown <= 0) {
+				_p1Cooldown = 0;
+			}
+		}
+		if (_p2Cooldown > 0) {
+			_p2Cooldown -= FlxG.elapsed;
+			if (_p2Cooldown <= 0) {
+				_p2Cooldown = 0;
+			}
+		}
+		
 		// Check for dead players and put them on a resurrection timer.
 		if (_player1.dead) {
 			_p1RespawnTimer += FlxG.elapsed;
-			if (_p1RespawnTimer > 1.5) {
+			if (_p1RespawnTimer > respawnTime) {
 				_p1RespawnTimer = 0;
 				_player1.create(_p1Start.x, _p1Start.y);
 			}
 		}
 		if (_player2.dead) {
 			_p2RespawnTimer += FlxG.elapsed;
-			if (_p2RespawnTimer > 1.5) {
+			if (_p2RespawnTimer > respawnTime) {
 				_p2RespawnTimer = 0;
 				_player2.create(_p2Start.x, _p2Start.y);
 			}
@@ -181,7 +204,7 @@ public class GameState extends FlxState
 		handle_input();
 		
 		// Check for victory condition.
-		if (_p1Score > 2 || _p2Score > 2) {
+		if (_p1Score >= winningScore || _p2Score >= winningScore) {
 			if (_p1Score > _p2Score) {
 				trace("Player 1 wins! " + _p1Score + "-" + _p2Score);
 				endGame(1, _p1Score, _p2Score);
@@ -210,13 +233,15 @@ public class GameState extends FlxState
 	
 	protected function handle_input():void
 	{
-		if (FlxG.keys.justPressed('Q')) // Color mode switch
+		if (FlxG.keys.justPressed('Q') && _p1Cooldown <= 0) // Color mode switch
 		{
 			p1SwitchColor();
+			_p1Cooldown = cooldownTimer;
 		}
-		if (FlxG.keys.justPressed('SLASH'))
+		if (FlxG.keys.justPressed('SLASH') && _p2Cooldown <= 0)
 		{
 			p2SwitchColor();
+			_p2Cooldown = cooldownTimer;
 		}
 		if (FlxG.keys.justPressed('E') && _player1.useTrap()) // Player 1 trap
 		{
@@ -314,7 +339,7 @@ public class GameState extends FlxState
 	{
 		if (a is Player)
 		{
-			Player(a).hurt(1);
+			Player(a).hurt(hazardDamage);
 		}
 	}
 	
@@ -322,7 +347,7 @@ public class GameState extends FlxState
 	{
 		if (a is Player && b is Trap && Trap(b).isArmed())
 		{
-			Player(a).hurt(3);
+			Player(a).hurt(trapDamage);
 			b.kill();
 		}
 	}
