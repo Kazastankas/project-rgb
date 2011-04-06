@@ -153,11 +153,13 @@ public class GameState extends FlxState
 		// Key overlays
 		var p1_keys : FlxSprite = new FlxSprite(0, 544);
 		p1_keys.loadGraphic(keys1Sprite, false, true, 217, 56);
+		p1_keys.alpha = 0.8;
 		p1_keys.fixed = true;
 		add(p1_keys);
 		
 		var p2_keys : FlxSprite = new FlxSprite(583, 0);
 		p2_keys.loadGraphic(keys2Sprite, false, true, 217, 56);
+		p2_keys.alpha = 0.8;
 		p2_keys.fixed = true;
 		add(p2_keys);
 		
@@ -604,7 +606,6 @@ public class GameState extends FlxState
 	private function generateTrapPickups() : void
 	{
 		trapPickups.add(new TrapPickup(125, 25));
-		trapPickups.add(new TrapPickup(725, 25));
 		trapPickups.add(new TrapPickup(550, 50));
 		trapPickups.add(new TrapPickup(350, 75));
 		trapPickups.add(new TrapPickup(50, 100));
@@ -623,9 +624,9 @@ public class GameState extends FlxState
 		trapPickups.add(new TrapPickup(375, 425));
 		trapPickups.add(new TrapPickup(475, 450));
 		trapPickups.add(new TrapPickup(750, 450));
+		trapPickups.add(new TrapPickup(25, 500));
+		trapPickups.add(new TrapPickup(150, 500));
 		trapPickups.add(new TrapPickup(350, 500));
-		trapPickups.add(new TrapPickup(25, 525));
-		trapPickups.add(new TrapPickup(150, 525));
 		trapPickups.add(new TrapPickup(250, 550));
 		trapPickups.add(new TrapPickup(650, 550));
 	}
