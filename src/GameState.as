@@ -11,6 +11,8 @@ public class GameState extends FlxState
 {
 	[Embed(source = "img/base1.png")] public var base1Sprite:Class;
 	[Embed(source = "img/base2.png")] public var base2Sprite:Class;
+	[Embed(source = "img/keytemplate_player1.png")] public var keys1Sprite:Class;
+	[Embed(source = "img/keytemplate_player2.png")] public var keys2Sprite:Class;
 	
 	// Bits representing color mode currently viewed.
 	static public const ALL : uint = 0x7;
@@ -147,6 +149,17 @@ public class GameState extends FlxState
 		
 		_p2Life = new HealthBar(_player2);
 		add(_p2Life);
+		
+		// Key overlays
+		var p1_keys : FlxSprite = new FlxSprite(0, 544);
+		p1_keys.loadGraphic(keys1Sprite, false, true, 217, 56);
+		p1_keys.fixed = true;
+		add(p1_keys);
+		
+		var p2_keys : FlxSprite = new FlxSprite(583, 0);
+		p2_keys.loadGraphic(keys2Sprite, false, true, 217, 56);
+		p2_keys.fixed = true;
+		add(p2_keys);
 		
 		// Camera init
 		_camera = new CameraCue();
