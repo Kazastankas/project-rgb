@@ -8,8 +8,8 @@ import org.flixel.*;
  */
 public class MenuState extends FlxState
 {
-	[Embed(source = "img/rgb_tutorial_1.png")] protected var tutorial1:Class;
-	[Embed(source = "img/rgb_tutorial_2.png")] protected var tutorial2:Class;
+	[Embed(source = "img/rgb_tutorial_1_new.png")] protected var tutorial1:Class;
+	[Embed(source = "img/rgb_tutorial_2_new.png")] protected var tutorial2:Class;
 	[Embed(source = "img/rgb_menu.png")] protected var menu:Class;
 	[Embed(source = "img/rgb_credits.png")] protected var credits:Class;
 	
