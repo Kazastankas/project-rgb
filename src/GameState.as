@@ -396,19 +396,13 @@ public class GameState extends FlxState
 		var redWall : Wall;
 		var i : uint;
 		
-		// top left L
-		for (i = 0; i < 6; i++) {
-			redWall = new Wall(25 * i, 125, 25, 25, RGBSprite.R);
-			walls.add(redWall);
-		}
+		// top lines
 		for (i = 0; i < 2; i++) {
 			redWall = new Wall(125, 75 + 25 * i, 25, 25, RGBSprite.R);
 			walls.add(redWall);
 		}
-		
-		// vert bar
-		for (i = 0; i < 4; i++) {
-			redWall = new Wall(200, 25 + 25 * i, 25, 25, RGBSprite.R);
+		for (i = 0; i < 2; i++) {
+			redWall = new Wall(200, 50 + 25 * i, 25, 25, RGBSprite.R);
 			walls.add(redWall);
 		}
 		
@@ -416,6 +410,8 @@ public class GameState extends FlxState
 		for (i = 0; i < 5; i++) {
 			redWall = new Wall(275 + 25 * i, 100, 25, 25, RGBSprite.R);
 			walls.add(redWall);
+		}
+		for (i = 0; i < 4; i++) {
 			redWall = new Wall(525 + 25 * i, 100, 25, 25, RGBSprite.R);
 			walls.add(redWall);
 		}
@@ -425,36 +421,42 @@ public class GameState extends FlxState
 		}
 		
 		// vert bar
-		for (i = 0; i < 7; i++) {
-			redWall = new Wall(675, 150 + 25 * i, 25, 25, RGBSprite.R);
+		for (i = 0; i < 5; i++) {
+			redWall = new Wall(675, 175 + 25 * i, 25, 25, RGBSprite.R);
 			walls.add(redWall);
 		}
 		
-		// lower case h with a thing
+		// rotated L
 		for (i = 0; i < 4; i++) {
 			redWall = new Wall(200 + 25 * i, 350, 25, 25, RGBSprite.R);
 			walls.add(redWall);
 		}
-		for (i = 0; i < 9; i++) {
+		for (i = 0; i < 2; i++) {
 			redWall = new Wall(300, 325 + 25 * i, 25, 25, RGBSprite.R);
 			walls.add(redWall);
 		}
-		for (i = 0; i < 4; i++) {
-			redWall = new Wall(325 + 25 * i, 450, 25, 25, RGBSprite.R);
+		
+		// vert bar
+		for (i = 0; i < 5; i++) {
+			redWall = new Wall(300, 425 + 25 * i, 25, 25, RGBSprite.R);
 			walls.add(redWall);
 		}
-		for (i = 0; i < 3; i++) {
+		for (i = 0; i < 2; i++) {
+			redWall = new Wall(375 + 25 * i, 450, 25, 25, RGBSprite.R);
+			walls.add(redWall);
+		}
+		
+		// rotated L
+		for (i = 0; i < 2; i++) {
 			redWall = new Wall(400, 475 + 25 * i, 25, 25, RGBSprite.R);
 			walls.add(redWall);
 		}
 		
-		// lower right L shape
-		for (i = 0; i < 6; i++) {
+		// horz bar
+		for (i = 0; i < 3; i++) {
 			redWall = new Wall(550 + 25 * i, 475, 25, 25, RGBSprite.R);
 			walls.add(redWall);
 		}
-		redWall = new Wall(675, 450, 25, 25, RGBSprite.R);
-		walls.add(redWall);
 	}
 	
 	// Green walls. All of them.
@@ -475,39 +477,39 @@ public class GameState extends FlxState
 			greenWall = new Wall(225, 175 + 25 * i, 25, 25, RGBSprite.G);
 			walls.add(greenWall);
 		}
-		for (i = 0; i < 9; i++) {
+		for (i = 0; i < 4; i++) {
 			greenWall = new Wall(600, 175 + 25 * i, 25, 25, RGBSprite.G);
 			walls.add(greenWall);
 		}
+		for (i = 0; i < 3; i++) {
+			greenWall = new Wall(600, 325 + 25 * i, 25, 25, RGBSprite.G);
+			walls.add(greenWall);
+		}
 		
-		// left blocks
+		// left lines
 		for (i = 0; i < 4; i++) {
-			for (j = 0; j < 2; j++) {
-				greenWall = new Wall(25 * j, 325 + 25 * i, 25, 25, RGBSprite.G);
-				walls.add(greenWall);
-			}
+			greenWall = new Wall(0, 325 + 25 * i, 25, 25, RGBSprite.G);
+			walls.add(greenWall);
 		}
 		for (i = 0; i < 3; i++) {
 			greenWall = new Wall(25 * i, 475, 25, 25, RGBSprite.G);
 			walls.add(greenWall);
 		}
 		
-		// right blocks
+		// right lines
 		for (i = 0; i < 3; i++) {
 			for (j = 0; j < 3; j++) {
-				greenWall = new Wall(750, 75 + 125 * j + 25 * i, 25, 25, RGBSprite.G);
-				walls.add(greenWall);
 				greenWall = new Wall(775, 75 + 125 * j + 25 * i, 25, 25, RGBSprite.G);
 				walls.add(greenWall);
 			}
+			greenWall = new Wall(750, 325 + 25 * i, 25, 25, RGBSprite.G);
+			walls.add(greenWall);
 		}
-		greenWall = new Wall(700, 375, 25, 25, RGBSprite.G);
-		walls.add(greenWall);
 		greenWall = new Wall(725, 375, 25, 25, RGBSprite.G);
 		walls.add(greenWall);
 		
 		// bottom block
-		for (i = 0; i < 6; i++) {
+		for (i = 0; i < 5; i++) {
 			greenWall = new Wall(475 + 25 * i, 550, 25, 25, RGBSprite.G);
 			walls.add(greenWall);
 			greenWall = new Wall(475 + 25 * i, 575, 25, 25, RGBSprite.G);
@@ -523,26 +525,30 @@ public class GameState extends FlxState
 		var j : uint;
 		
 		// Headliner
-		for (i = 0; i < 3; i++) {
+		for (i = 1; i < 3; i++) {
 			blueWall = new Wall(275 + 25 * i, 25, 25, 25, RGBSprite.B);
 			walls.add(blueWall);
 		}
-		for (i = 5; i < 10; i++) {
-			blueWall = new Wall(275 + 25 * i, 25, 25, 25, RGBSprite.B);
-			walls.add(blueWall);
-		}
-		for (i = 14; i < 17; i++) {
+		for (i = 14; i < 16; i++) {
 			blueWall = new Wall(275 + 25 * i, 25, 25, 25, RGBSprite.B);
 			walls.add(blueWall);
 		}
 		
-		// Left block
-		for (i = 0; i < 6; i++) {
-			for (j = 0; j < 5; j++) {
-				blueWall = new Wall(25 * i, 200 + 25 * j, 25, 25, RGBSprite.B);
-				walls.add(blueWall);
-			}
+		// Left remnants of the 5x6
+		for (i = 0; i < 3; i++) {
+			blueWall = new Wall(25 * i, 200, 25, 25, RGBSprite.B);
+			walls.add(blueWall);
+			blueWall = new Wall(25 * i, 275, 25, 25, RGBSprite.B);
+			walls.add(blueWall);
+			blueWall = new Wall(25 * i, 300, 25, 25, RGBSprite.B);
+			walls.add(blueWall);
 		}
+		blueWall = new Wall(125, 200, 25, 25, RGBSprite.B);
+		walls.add(blueWall);
+		blueWall = new Wall(125, 275, 25, 25, RGBSprite.B);
+		walls.add(blueWall);
+		blueWall = new Wall(125, 300, 25, 25, RGBSprite.B);
+		walls.add(blueWall);
 		
 		// Center blocks
 		for (i = 0; i < 2; i++) {
@@ -551,12 +557,10 @@ public class GameState extends FlxState
 				walls.add(blueWall);
 			}
 		}
-		for (i = 0; i < 6; i++) {
-			for (j = 0; j < 4; j++) {
-				if (i + j > 0) {
-					blueWall = new Wall(375 + 25 * i, 300 + 25 * j, 25, 25, RGBSprite.B);
-					walls.add(blueWall);
-				}
+		for (i = 0; i < 4; i++) {
+			for (j = 0; j < 3; j++) {
+				blueWall = new Wall(400 + 25 * i, 325 + 25 * j, 25, 25, RGBSprite.B);
+				walls.add(blueWall);
 			}
 		}
 		
@@ -573,11 +577,9 @@ public class GameState extends FlxState
 				}
 			}
 		}
-		for (i = 0; i < 2; i++) {
-			for (j = 0; j < 5; j++) {
-				blueWall = new Wall(200 + 25 * i, 425 + 25 * j, 25, 25, RGBSprite.B);
-				walls.add(blueWall);
-			}
+		for (i = 0; i < 5; i++) {
+			blueWall = new Wall(225, 425 + 25 * i, 25, 25, RGBSprite.B);
+			walls.add(blueWall);
 		}
 	}
 	
