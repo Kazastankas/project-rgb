@@ -152,13 +152,13 @@ public class GameState extends FlxState
 		
 		// Key overlays
 		var p1_keys : FlxSprite = new FlxSprite(0, 544);
-		p1_keys.loadGraphic(keys1Sprite, false, true, 217, 56);
+		p1_keys.loadGraphic(keys1Sprite, false, true, 244, 56);
 		p1_keys.alpha = 0.8;
 		p1_keys.fixed = true;
 		add(p1_keys);
 		
-		var p2_keys : FlxSprite = new FlxSprite(583, 0);
-		p2_keys.loadGraphic(keys2Sprite, false, true, 217, 56);
+		var p2_keys : FlxSprite = new FlxSprite(556, 0);
+		p2_keys.loadGraphic(keys2Sprite, false, true, 244, 56);
 		p2_keys.alpha = 0.8;
 		p2_keys.fixed = true;
 		add(p2_keys);
