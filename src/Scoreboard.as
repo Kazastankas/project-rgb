@@ -50,19 +50,19 @@ public class Scoreboard extends FlxSprite
 	{
 		switch (value) {
 			case 0:
-				loadGraphic(score0, false, false);
+				loadGraphic(score0, false, false).visible = false;
 				break;
 			case 1:
-				loadGraphic(score1, false, false);
+				loadGraphic(score1, false, false).visible = false;
 				break;
 			case 2:
-				loadGraphic(score2, false, false);
+				loadGraphic(score2, false, false).visible = false;
 				break;
 			case 3:
-				loadGraphic(score3, false, false);
+				loadGraphic(score3, false, false).visible = false;
 				break;
 			default:
-				loadGraphic(score0, false, false);
+				loadGraphic(score0, false, false).visible = false;
 				break;
 		}
 	}
@@ -81,6 +81,7 @@ public class Scoreboard extends FlxSprite
 					alpha = animationTimer / animationTime;
 				}
 			} else if (fadeState == 2) {
+				visible = true;
 				animationTimer -= FlxG.elapsed;
 				if (animationTimer < 0) {
 					alpha = 1;
