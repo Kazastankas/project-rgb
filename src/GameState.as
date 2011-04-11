@@ -190,8 +190,7 @@ public class GameState extends FlxState
 		FlxU.overlap(players, traps, process_trap);
 		FlxU.overlap(players, trapPickups, process_pickup);
 		
-		// Make sure players can't go through walls or other players.
-		FlxU.collide(players, players);
+		// Make sure players can't go through walls.
 		FlxU.collide(players, walls);
 		
 		// Tick down color mode change timers.
