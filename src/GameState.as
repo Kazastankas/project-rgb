@@ -39,6 +39,7 @@ public class GameState extends FlxState
 	protected var _p1Start : FlxPoint;
 	protected var _p1BaseLoc : FlxPoint;
 	protected var _p1Base : FlxGroup;
+	protected var _p1Scoreboard : Scoreboard;
 	protected var _p1RespawnTimer : Number = 0;
 	protected var _p1Score : Number = 0;
 	protected var _p1Cooldown : Number = 0;
@@ -47,6 +48,7 @@ public class GameState extends FlxState
 	protected var _p2Start : FlxPoint;
 	protected var _p2BaseLoc : FlxPoint;
 	protected var _p2Base : FlxGroup;
+	protected var _p2Scoreboard : Scoreboard;
 	protected var _p2RespawnTimer : Number = 0;
 	protected var _p2Score : Number = 0;
 	protected var _p2Cooldown : Number = 0;
@@ -135,6 +137,12 @@ public class GameState extends FlxState
 		goals.add(p1_goal);
 		goals.add(p2_goal);
 		add(goals);
+		
+		// Scoreboards init
+		_p1Scoreboard = new Scoreboard(_p1BaseLoc.x, _p1BaseLoc.y, _p1BaseLoc, 0);
+		_p2Scoreboard = new Scoreboard(_p2BaseLoc.x, _p2BaseLoc.y, _p2BaseLoc, 0);
+		add(_p1Scoreboard);
+		add(_p2Scoreboard);
 		
 		// Player init
 		players = new FlxGroup();
@@ -332,7 +340,7 @@ public class GameState extends FlxState
 			if (Player(a).isCarrying()) {
 				Player(a).scoreGoal();
 				_p1Score++;
-				trace("Player 1 scores!");
+				_p1Scoreboard.changeScore(_p1Score);
 			}
 		}
 	}
@@ -344,7 +352,7 @@ public class GameState extends FlxState
 			if (Player(a).isCarrying()) {
 				Player(a).scoreGoal();
 				_p2Score++;
-				trace("Player 2 scores!");
+				_p2Scoreboard.changeScore(_p2Score);
 			}
 		}
 	}
