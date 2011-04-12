@@ -9,10 +9,14 @@ import org.flixel.*;
  */
 public class GameState extends FlxState
 {
-	[Embed(source = "img/base1.png")] public var base1Sprite:Class;
-	[Embed(source = "img/base2.png")] public var base2Sprite:Class;
-	[Embed(source = "img/keytemplate_player1.png")] public var keys1Sprite:Class;
-	[Embed(source = "img/keytemplate_player2.png")] public var keys2Sprite:Class;
+	[Embed(source = "img/base1.png")] protected var base1Sprite:Class;
+	[Embed(source = "img/base2.png")] protected var base2Sprite:Class;
+	[Embed(source = "img/keytemplate_player1.png")] protected var keys1Sprite:Class;
+	[Embed(source = "img/keytemplate_player2.png")] protected var keys2Sprite:Class;
+	
+	[Embed(source = "sounds/score.mp3")] protected var scoreSound:Class;
+	[Embed(source = "sounds/player_trap.mp3")] protected var playerTrapSound:Class;
+	[Embed(source = "sounds/hazard.mp3")] protected var hazardSound:Class;
 	
 	// Bits representing color mode currently viewed.
 	static public const ALL : uint = 0x7;
@@ -337,6 +341,7 @@ public class GameState extends FlxState
 		if (a is Player1)
 		{
 			if (Player(a).isCarrying()) {
+				FlxG.play(scoreSound);
 				Player(a).scoreGoal();
 				_p1Score++;
 				_p1Scoreboard.changeScore(_p1Score);
@@ -349,6 +354,7 @@ public class GameState extends FlxState
 		if (a is Player2)
 		{
 			if (Player(a).isCarrying()) {
+				FlxG.play(scoreSound);
 				Player(a).scoreGoal();
 				_p2Score++;
 				_p2Scoreboard.changeScore(_p2Score);
@@ -361,7 +367,7 @@ public class GameState extends FlxState
 	{
 		if (a is Player)
 		{
-			Player(a).hurt(hazardDamage);
+			Player(a).damageEvent(hazardDamage, hazardSound);
 		}
 	}
 	
@@ -369,7 +375,7 @@ public class GameState extends FlxState
 	{
 		if (a is Player && b is Trap && Trap(b).isArmed())
 		{
-			Player(a).hurt(trapDamage);
+			Player(a).damageEvent(trapDamage, playerTrapSound);
 			b.kill();
 		}
 	}
