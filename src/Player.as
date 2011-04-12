@@ -101,10 +101,11 @@ public class Player extends FlxSprite
 		}
 	}
 	
-	override public function hurt(damage : Number):void
+	public function damageEvent(damage : Number, sound : Class):void
 	{
 		if (invincibilityTimer <= 0.0) {
 			super.hurt(damage);
+			FlxG.play(sound); // Only play sound when you are hurt
 			invincibilityTimer = 1.0;
 		}
 	}
