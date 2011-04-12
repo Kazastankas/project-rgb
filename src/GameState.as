@@ -14,6 +14,7 @@ public class GameState extends FlxState
 	[Embed(source = "img/keytemplate_player1.png")] protected var keys1Sprite:Class;
 	[Embed(source = "img/keytemplate_player2.png")] protected var keys2Sprite:Class;
 	
+	[Embed(source = "sounds/loop.mp3")] protected var loopMusic:Class;
 	[Embed(source = "sounds/score.mp3")] protected var scoreSound:Class;
 	[Embed(source = "sounds/player_trap.mp3")] protected var playerTrapSound:Class;
 	[Embed(source = "sounds/hazard.mp3")] protected var hazardSound:Class;
@@ -87,6 +88,8 @@ public class GameState extends FlxState
 		var i : int;
 		var j : int;
 		
+		FlxG.playMusic(loopMusic, 0.2);
+			
 		walls = new FlxGroup();
 		generateOuterWalls();
 		generateRedWalls();
